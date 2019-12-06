@@ -164,29 +164,149 @@ void SortedLinkedListType<T>::Insert(T& data) {
 	NodeType<T>* tempPtr = new NodeType<T>;
 	tempPtr->data = data;
 
-	m_curPtr = m_head;
-	while (m_curPtr->next != m_tail) {			//넣으려는 Node가 맨 뒤에 붙는게 아닌 경우
-		m_curPtr = m_curPtr->next;
-		if (m_curPtr->data > data) {
-			m_curPtr->pre->next = tempPtr;
-			tempPtr->pre = m_curPtr->pre;
-			m_curPtr->pre = tempPtr;
-			tempPtr->next = m_curPtr;
+	ResetList();
+	if (m_head->next == m_tail && m_tail->pre == m_head) {//node가 한개도 존재하지 않을때
+		tempPtr->pre = m_head;
+		tempPtr->next = m_tail;
+		m_head->next = tempPtr;
+		m_tail->pre = tempPtr;
+		m_length++;
+	}
+	else {
+		if (data < m_head->next->data) {//node가 데이터 존재 노드들중 가장 작은 값을 가질때
+			tempPtr->pre = m_head;
+			tempPtr->next = m_head->next;
+			m_head->next->pre = tempPtr;
+			m_head->next = tempPtr;
+
 			m_length++;
-			return;
+		}
+		else if (data > m_tail->pre->data) {//node가 데이터 존재 노드들중 가장 큰 값을 가질때
+			tempPtr->next = m_tail;
+			tempPtr->pre = m_tail->pre;
+			m_tail->pre->next = tempPtr;
+			m_tail->pre = tempPtr;
+
+			m_length++;
+		}
+		else if (data - m_curPtr->next->data < m_tail->pre->data - data) {//node가 head쪽에 더 가까울때
+			while (m_curPtr->next != m_tail) {
+				m_curPtr = m_curPtr->next;
+				if (data > m_curPtr->data && data < m_curPtr->next->data) {
+					tempPtr->pre = m_curPtr;
+					tempPtr->next = m_curPtr->next;
+					m_curPtr->next->pre = tempPtr;
+					m_curPtr->next = tempPtr;
+
+					m_length++;
+					break;
+				}
+			}
+		}
+		else if (data - m_curPtr->next->data > m_tail->pre->data - data) {//node가 tail쪽에 더 가까울때
+			m_curPtr = m_tail;
+			while (m_curPtr->pre != m_head) {
+				m_curPtr = m_curPtr->pre;
+				if (data < m_curPtr->data && data > m_curPtr->pre->data) {
+					tempPtr->pre = m_curPtr->pre;
+					tempPtr->next = m_curPtr;
+					m_curPtr->pre->next = tempPtr;
+					m_curPtr->pre = tempPtr;
+
+					m_length++;
+					break;
+				}
+			}
 		}
 	}
-	m_curPtr->next->pre = tempPtr;				//넣으려는 Node가 맨 뒤에 붙을 경우
-	tempPtr->next = m_curPtr->next;
-	tempPtr->pre = m_curPtr;
-	m_curPtr->next = tempPtr;
-	m_length++;
+	//while (m_curPtr->next != m_tail) {			//넣으려는 Node가 맨 뒤에 붙는게 아닌 경우
+	//	m_curPtr = m_curPtr->next;
+	//	if (m_curPtr->data > data) {
+	//		m_curPtr->pre->next = tempPtr;
+	//		tempPtr->pre = m_curPtr->pre;
+	//		m_curPtr->pre = tempPtr;
+	//		tempPtr->next = m_curPtr;
+	//		m_length++;
+	//		break;
+	//	}
+	//}
+	//m_curPtr->next->pre = tempPtr;				//넣으려는 Node가 맨 뒤에 붙을 경우
+	//tempPtr->next = m_curPtr->next;
+	//tempPtr->pre = m_curPtr;
+	//m_curPtr->next = tempPtr;
+	//m_length++;
 }
 
 //LinkedList에서 특정 노드를 삭제한다.
 template <typename T>
 void SortedLinkedListType<T>::Delete(T& data) {
-	m_curPtr = m_head;
+	if (m_head->next != m_tail && m_tail->pre != m_head)
+	{
+		NodeType<T>* temp;
+		ResetList();
+		/*if (m_length == 1)
+			m_curPtr = m_curPtr->next;
+		if (data == m_curPtr->data) {
+			data = m_curPtr->data;
+			return 1;
+		}*/
+		if (m_head->next->data == m_tail->pre->data) {//node가 단한개만 존재할때
+			m_curPtr = m_curPtr->next;
+			if (data == m_curPtr->data) {
+				data = m_curPtr->data;
+				temp = m_curPtr;
+				m_curPtr = m_head;
+				m_head->next = m_tail;
+				m_tail->pre = m_head;
+				delete temp;
+				m_length--;
+			}
+		}
+		else if (data - m_curPtr->next->data < m_tail->pre->data - data) { //data 값이 tail보다 head쪽에 더 가까울때
+			while (m_curPtr->next != m_tail) {
+				m_curPtr = m_curPtr->next;
+				if (m_curPtr->data == data) {
+					if (m_head->next->data == data) {//data 값이 가장 첫번째 node일때
+						m_head->next = m_curPtr->next;
+						m_curPtr->next->pre = m_head;
+					}
+					else {
+						m_curPtr->next->pre = m_curPtr->pre;
+						m_curPtr->pre->next = m_curPtr->next;
+					}
+					data = m_curPtr->data;
+					temp = m_curPtr;
+					m_curPtr = m_curPtr->next;
+					delete temp;
+					m_length--;
+					break;
+				}
+			}
+		}
+		else if (data - m_curPtr->next->data > m_tail->pre->data - data) {//data 값이 head보다 tail쪽에 더 가까울때
+			m_curPtr = m_tail;
+			while (m_curPtr->pre != m_head) {
+				m_curPtr = m_curPtr->pre;
+				if (m_curPtr->data == data) {
+					if (m_tail->pre->data == data) {
+						m_tail->pre = m_curPtr->pre;
+						m_curPtr->pre->next = m_tail;
+					}
+					else {
+						m_curPtr->next->pre = m_curPtr->pre;
+						m_curPtr->pre->next = m_curPtr->next;
+					}
+				}
+				data = m_curPtr->data;
+				temp = m_curPtr;
+				m_curPtr = m_curPtr->pre;
+				delete temp;
+				m_length--;
+				break;
+			}
+		}
+	}
+	/*m_curPtr = m_head;
 	while (m_curPtr->next != m_tail) {
 		m_curPtr = m_curPtr->next;
 		if (m_curPtr->data == data) {
@@ -196,7 +316,7 @@ void SortedLinkedListType<T>::Delete(T& data) {
 			m_length--;
 			return;
 		}
-	}
+	}*/
 }
 
 //LinkedList의 모든 요소들을 삭제한다.
@@ -262,7 +382,7 @@ bool SortedLinkedListType<T>::isFull() {
 //LinkedList에 동일한 data를 가진 Node가 존재하는지 검사한다.
 template <typename T>
 int SortedLinkedListType<T>::Get(T& data) {	
-	if (m_length > 0)
+	if (m_head->next != m_tail && m_tail->pre != m_head) //node가 한개 이상 존재할때
 	{
 		ResetList();
 		/*if (m_length == 1)
@@ -271,14 +391,14 @@ int SortedLinkedListType<T>::Get(T& data) {
 			data = m_curPtr->data;
 			return 1;
 		}*/
-		if (m_length == 1) {
+		if (m_head->next->data == m_tail->pre->data) {//node가 단한개만 존재할때
 			m_curPtr = m_curPtr->next;
 			if (data == m_curPtr->data) {
 				data = m_curPtr->data;
 				return 1;
 			}
 		}
-		if (data - m_curPtr->next->data < m_tail->pre->data - data) {
+		else if (data - m_curPtr->next->data < m_tail->pre->data - data) {//data 값이 tail보다 head쪽에 더 가까울때
 			while (m_curPtr->next != m_tail) {
 				m_curPtr = m_curPtr->next;
 				if (m_curPtr->data == data) {
@@ -287,7 +407,7 @@ int SortedLinkedListType<T>::Get(T& data) {
 				}
 			}
 		}
-		else if (data - m_curPtr->next->data > m_tail->pre->data - data) {
+		else if (data - m_curPtr->next->data > m_tail->pre->data - data) {//data 값이 head보다 tail쪽에 더 가까울때
 			m_curPtr = m_tail;
 			while (m_curPtr->pre != m_head) {
 				m_curPtr = m_curPtr->pre;
@@ -302,13 +422,4 @@ int SortedLinkedListType<T>::Get(T& data) {
 		return 0;
 
 	return 0;
-	/*ResetList();
-	while (m_curPtr->next != m_tail) {
-		m_curPtr = m_curPtr->next;
-		if (m_curPtr->data == data) {
-			data = m_curPtr->data;
-			return 1;
-		}
-	}
-	return 0;*/
 }

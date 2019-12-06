@@ -435,21 +435,24 @@ void Application::AddMyVoca() {
 void Application::DeleteMyVoca() {
 	VocaType tempVoca;
 	SimpleVocaType simpleTempVoca;
-
-	cout << "\n\t내 단어장 리스트에서 삭제하려는 영어단어 입력: ";
-	tempVoca.SetEnglishFromKB();
-	if (m_AllVocaList.Get(tempVoca)) {				//프로그램에 삭제하려는 영어단어가 존재하는지 검사
-		simpleTempVoca = m_AllSimpleList.GetIndexOfData(tempVoca.GetId() - 1);
-		if (m_MyVocaList.Get(simpleTempVoca)) {		//내 단어장 리스트에 삭제하려는 영어단어가 존재하는 검사
-			m_MyVocaList.Delete(simpleTempVoca);
-			cout << "\n\t내 단어장 리스트 업데이트 완료\n";
+	if (m_MyVocaList.GetLength() == 0)
+		cout << "\n\t단어장이 비어있습니다";
+	else {
+		cout << "\n\t내 단어장 리스트에서 삭제하려는 영어단어 입력: ";
+		tempVoca.SetEnglishFromKB();
+		if (m_AllVocaList.Get(tempVoca)) {				//프로그램에 삭제하려는 영어단어가 존재하는지 검사
+			simpleTempVoca = m_AllSimpleList.GetIndexOfData(tempVoca.GetId() - 1);
+			if (m_MyVocaList.Get(simpleTempVoca)) {		//내 단어장 리스트에 삭제하려는 영어단어가 존재하는 검사
+				m_MyVocaList.Delete(simpleTempVoca);
+				cout << "\n\t내 단어장 리스트 업데이트 완료\n";
+			}
+			else {										//내 단어장 리스트에 삭제하려는 영어단어가 존재하지 않는 경우
+				cout << "\n\t해당 단어는 내 단어장 리스트에 존재하지 않음\n";
+			}
 		}
-		else {										//내 단어장 리스트에 삭제하려는 영어단어가 존재하지 않는 경우
-			cout << "\n\t해당 단어는 내 단어장 리스트에 존재하지 않음\n";
+		else {											//프로그램에 삭제하려는 영어단어가 존재하지 않는 경우
+			cout << "\n\t해당 단어는 프로그램에 존재하지 않음\n";
 		}
-	}
-	else {											//프로그램에 삭제하려는 영어단어가 존재하지 않는 경우
-		cout << "\n\t해당 단어는 프로그램에 존재하지 않음\n";
 	}
 }
 
