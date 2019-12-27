@@ -14,97 +14,132 @@ struct NodeType
 template <typename T>
 class SortedLinkedListType {
 public:
-	/**
-	*	@brief	기본 생성자
-	*	@post	LinkedList의 모든 멤버변수를 초기화한다.
+	/*
+	*	@brief	Default constructor
 	*/
 	SortedLinkedListType();
 
 	/**
-	*	@brief	소멸자
-	*	@post	LinkedList의 동적할당된 모든 요소들을 할당 해제한다.
+	*	@brief	Destructor
+	*	@post	Deallocate all dynamic allocation in LinkedList
 	*/
 	~SortedLinkedListType();
 
 	/**
-	*	@brief	복사 생성자
+	*	@brief	Copy constructor
 	*	@post	기존에 존재하던 SortedLinkedListType의 객체로부터 모든 노드들을 deep copy한다.
 	*/
 	SortedLinkedListType(const SortedLinkedListType& list);
 
 	/**
-	*	@brief	LinkedList에 새로운 노드를 추가한다.
-	*	@pre	data를 입력받는다.
-	*	@post	LinkedList에 새로운 노드가 추가된다.
+	*	@brief	Add a new node to LinkedList
+	*	@pre	Get data input
+	*	@post	Add new node to linkedList
+	*   @return If node is added return 1, if not return 0
 	*/
-	void Insert(T& data);
+	int Insert(T& data);
 
 	/**
-	*	@brief	LinkedList에서 특정 노드를 삭제한다.
-	*	@pre	Get함수로 중복 data갖는 Node를 검사해야한다.
-	*	@post	LinkedList에서 특정 노드가 삭제된다.
+	*	@brief	Delete a node containing parameter data info inside LinkedList.
+	*	@pre	Check duplicate data using Get function
+	*	@post	Certain node is deleted
+	*   @return If node is deleted return 1, if not return 0
 	*/
-	void Delete(T& data);
+	int Delete(T& data);
 
 	/**
-	*	@brief	LinkedList의 모든 요소들을 삭제한다.
-	*	@pre	Get함수로 지우려는 data를 갖는 Node가 존재하는지 검사해야한다.
-	*	@post	LinkedList의 모든 요소들이 삭제된다.
+	*    @brief   Replace a certain node inside LinkedList to contain different info 
+	*    @pre    Check duplicate data using Get function
+	*    @post    Certain node is replaced
+	*/
+	void Replace(const T& data);
+
+	/**
+	*	@brief	Delete all instance inside the list
+	*	@pre	Check if the node exsits using Get function
+	*	@post	All list nodes are deleted
 	*/
 	void MakeEmpty();
 
 	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다.
-	*	@pre	data를 입력받는다.
-	*	@post	LinkedList에서 반복자를 이동되고 해당 반복자가 가리키는 Node의 data가 갱신된다.
-	*	@return	반복자가 끝까지 갔다면 nullptr, 아니라면 반복자가 가리키는 Node의 포인터를 반환한다.
+	*	@brief	Move the iterator to have the next data 
+	*	@pre	Get data input
+	*	@post	Iterator is moved and the data is renewed to the next node
+	*	@return	if it is null pointer return 0, if not return the current pointed node
 	*/
 	NodeType<T>* GetNext(T& data);
 
+	//LinkedList의 반복자를 pre방향으로 이동시키고 그때 가리키는 Node의 data를 반환한다.
+	NodeType<T>* GetPre(T& data);
+
 	/**
-	*	@brief	LinkedList의 반복자를 초기화한다.
-	*	@pre	LinkedLIst가 초기화 되어있어야한다.
-	*	@post	LinkedList의 반복자가 초기화된다.
+	*	@brief	LinkedList iterator must be initialized
+	*	@pre	LinkedLIst must be initialized
+	*	@post	LinkedList의 iterator turned to default setting
 	*/
 	void ResetList();
 
+	//initialize the LinkedList iterator to circulate to pre direction.
+	void ResetListForGetPre();
+
 	/**
-	*	@brief	LinkedList 내의 노드 갯수를 반환한다.
-	*	@pre	LinkedList가 초기화 되어있어야한다.
-	*	@post	LinkedList 내의 노드 갯수가 반환된다.
-	*	@return	LinkedList 내의 노드 갯수
+	*	@brief	Return number of nodes inside LinkedList .
+	*	@pre	LinkedList must be initialized.
+	*	@post	Total number of nodes inside LinkedList is returned.
+	*	@return	Node number of from linkedlist
 	*/
 	int GetLength();
 
 	/**
-	*	@brief	LinkedList 내의 노드가 비었는지 검사한다.
-	*	@pre	LinkedList가 초기화 되어있어야한다.
-	*	@post	LinkedList 내의 노드가 비었는지 검사하게된다.
-	*	@return	비었으면 true, 아니라면 false를 반환
+	*	@brief	Check if the LinkedList is empty
+	*	@pre	LinkedList must be initialized.
+	*	@post	Check if the LinkedList is empty.
+	*	@return	if empty return true, if not return false
 	*/
 	bool isEmpty();
 
 	/**
-	*	@brief	메모리상에 노드가 더 들어갈 수 있는지 검사한다.
-	*	@pre	LinkedList가 초기화 되어있어야한다.
-	*	@post	메모리상에 노드가 더 들어갈 수 있는지 검사하게된다.
-	*	@return	꽉찼으면 true, 아니라면 false를 반환
+	*	@brief	Check if it is possible to allocate more nodes to memory
+	*	@pre	LinkedList must be initialized
+	*	@post	Check if it is possible to allocate more nodes to memory.
+	*	@return	if full return true, if not return false
 	*/
 	bool isFull();
 
 	/**
-	*	@brief	LinkedList에 동일한 data를 가진 Node가 존재하는지 검사한다.
-	*	@pre	data를 입력받는다.
-	*	@post	LinkedList 내에 동일 data를 가진 Node의 존재 여부를 알게 된다.
-	*	@return	존재한다면 1, 아니라면 0을 반환
+	*	@brief	Search for matching data inside list with parameter data.
+	*	@pre	Get input from data.
+	*	@post	Know if the finding data item exists inside the list.
+	*	@return	if exists return true, if not return false
 	*/
 	int Get(T& data);
 
+	//Check rear data if parameter data matches with it. return 1 if matched, if not return 0
+	int CheckBack(T& data);
+	
+	//Insert after current rear data if parameter data is bigger than rear data. return 1 if inserted, if not return 0
+	int InsertTail(T& data);
+
+	//Delete rear data if parameter data matches with it. return 1 if deleted, if not return 0
+	int DeleteTail(T& data);
+
+	// Return data that current pointer is pointing
+	T* GetCurPtr() {
+		return &(m_curPtr->data);
+	}
+
+	/*
+	*	@brief	Deep copy Constructor 
+	*	@pre	Not executed if array list is empty or is maxsize
+	*	@post	Size of the array list decreases 500
+	*/
+	SortedLinkedListType<T>& operator=(const SortedLinkedListType<T>& list);
+
 private:
-	NodeType<T>* m_head;			//LinkedList에서 제일 앞에 위치한 노드를 가리키는 포인터
-	NodeType<T>* m_tail;			//LinkedList에서 제일 뒤에 위치한 노드를 가리키는 포인터
-	NodeType<T>* m_curPtr;			//LinkedList내에 존재하는 노드의 갯수를 저장하는 int형 변수
-	int m_length;
+	NodeType<T>* m_head;			//Pointer for pointing front node of the list
+	NodeType<T>* m_tail;			//Pointer for pointing rear node of the list
+	NodeType<T>* m_curPtr;			//Current node location pointer
+	int m_length;					//Current total length of node
 };
 
 //LinkedList의 멤버변수들을 초기화한다.
@@ -125,10 +160,8 @@ template <typename T>
 SortedLinkedListType<T>::SortedLinkedListType(const SortedLinkedListType& list) {
 	m_head = new NodeType<T>;
 	m_tail = new NodeType<T>;
-	m_head->data = NULL;
 	m_head->pre = nullptr;
 	m_head->next = m_tail;
-	m_tail->data = NULL;
 	m_tail->next = nullptr;
 	m_tail->pre = m_head;
 	m_curPtr = m_head;
@@ -160,163 +193,69 @@ SortedLinkedListType<T>::~SortedLinkedListType() {
 
 //LinkedList에 새로운 노드를 추가한다.
 template <typename T>
-void SortedLinkedListType<T>::Insert(T& data) {
-	NodeType<T>* tempPtr = new NodeType<T>;
-	tempPtr->data = data;
-
-	ResetList();
-	if (m_head->next == m_tail && m_tail->pre == m_head) {//node가 한개도 존재하지 않을때
-		tempPtr->pre = m_head;
-		tempPtr->next = m_tail;
-		m_head->next = tempPtr;
-		m_tail->pre = tempPtr;
-		m_length++;
+int SortedLinkedListType<T>::Insert(T& data) {
+	if (isFull()) {
+		return 0;
+	}
+	else if (InsertTail(data)) {
+		return 1;
 	}
 	else {
-		if (data < m_head->next->data) {//node가 데이터 존재 노드들중 가장 작은 값을 가질때
-			tempPtr->pre = m_head;
-			tempPtr->next = m_head->next;
-			m_head->next->pre = tempPtr;
-			m_head->next = tempPtr;
+		NodeType<T>* tempPtr = new NodeType<T>;
+		tempPtr->data = data;
 
-			m_length++;
-		}
-		else if (data > m_tail->pre->data) {//node가 데이터 존재 노드들중 가장 큰 값을 가질때
-			tempPtr->next = m_tail;
-			tempPtr->pre = m_tail->pre;
-			m_tail->pre->next = tempPtr;
-			m_tail->pre = tempPtr;
-
-			m_length++;
-		}
-		else if (data - m_curPtr->next->data < m_tail->pre->data - data) {//node가 head쪽에 더 가까울때
-			while (m_curPtr->next != m_tail) {
-				m_curPtr = m_curPtr->next;
-				if (data > m_curPtr->data && data < m_curPtr->next->data) {
-					tempPtr->pre = m_curPtr;
-					tempPtr->next = m_curPtr->next;
-					m_curPtr->next->pre = tempPtr;
-					m_curPtr->next = tempPtr;
-
-					m_length++;
-					break;
-				}
+		m_curPtr = m_head;
+		while (m_curPtr->next != m_tail) {            //넣으려는 Node가 맨 뒤에 붙는게 아닌 경우
+			m_curPtr = m_curPtr->next;
+			if (m_curPtr->data > data) {
+				m_curPtr->pre->next = tempPtr;
+				tempPtr->pre = m_curPtr->pre;
+				m_curPtr->pre = tempPtr;
+				tempPtr->next = m_curPtr;
+				m_length++;
+				return 1;
 			}
 		}
-		else if (data - m_curPtr->next->data > m_tail->pre->data - data) {//node가 tail쪽에 더 가까울때
-			m_curPtr = m_tail;
-			while (m_curPtr->pre != m_head) {
-				m_curPtr = m_curPtr->pre;
-				if (data < m_curPtr->data && data > m_curPtr->pre->data) {
-					tempPtr->pre = m_curPtr->pre;
-					tempPtr->next = m_curPtr;
-					m_curPtr->pre->next = tempPtr;
-					m_curPtr->pre = tempPtr;
-
-					m_length++;
-					break;
-				}
-			}
-		}
+		return 0;
 	}
-	//while (m_curPtr->next != m_tail) {			//넣으려는 Node가 맨 뒤에 붙는게 아닌 경우
-	//	m_curPtr = m_curPtr->next;
-	//	if (m_curPtr->data > data) {
-	//		m_curPtr->pre->next = tempPtr;
-	//		tempPtr->pre = m_curPtr->pre;
-	//		m_curPtr->pre = tempPtr;
-	//		tempPtr->next = m_curPtr;
-	//		m_length++;
-	//		break;
-	//	}
-	//}
-	//m_curPtr->next->pre = tempPtr;				//넣으려는 Node가 맨 뒤에 붙을 경우
-	//tempPtr->next = m_curPtr->next;
-	//tempPtr->pre = m_curPtr;
-	//m_curPtr->next = tempPtr;
-	//m_length++;
 }
 
 //LinkedList에서 특정 노드를 삭제한다.
 template <typename T>
-void SortedLinkedListType<T>::Delete(T& data) {
-	if (m_head->next != m_tail && m_tail->pre != m_head)
-	{
-		NodeType<T>* temp;
-		ResetList();
-		/*if (m_length == 1)
-			m_curPtr = m_curPtr->next;
-		if (data == m_curPtr->data) {
-			data = m_curPtr->data;
-			return 1;
-		}*/
-		if (m_head->next->data == m_tail->pre->data) {//node가 단한개만 존재할때
-			m_curPtr = m_curPtr->next;
-			if (data == m_curPtr->data) {
-				data = m_curPtr->data;
-				temp = m_curPtr;
-				m_curPtr = m_head;
-				m_head->next = m_tail;
-				m_tail->pre = m_head;
-				delete temp;
-				m_length--;
-			}
-		}
-		else if (data - m_curPtr->next->data < m_tail->pre->data - data) { //data 값이 tail보다 head쪽에 더 가까울때
-			while (m_curPtr->next != m_tail) {
-				m_curPtr = m_curPtr->next;
-				if (m_curPtr->data == data) {
-					if (m_head->next->data == data) {//data 값이 가장 첫번째 node일때
-						m_head->next = m_curPtr->next;
-						m_curPtr->next->pre = m_head;
-					}
-					else {
-						m_curPtr->next->pre = m_curPtr->pre;
-						m_curPtr->pre->next = m_curPtr->next;
-					}
-					data = m_curPtr->data;
-					temp = m_curPtr;
-					m_curPtr = m_curPtr->next;
-					delete temp;
-					m_length--;
-					break;
-				}
-			}
-		}
-		else if (data - m_curPtr->next->data > m_tail->pre->data - data) {//data 값이 head보다 tail쪽에 더 가까울때
-			m_curPtr = m_tail;
-			while (m_curPtr->pre != m_head) {
-				m_curPtr = m_curPtr->pre;
-				if (m_curPtr->data == data) {
-					if (m_tail->pre->data == data) {
-						m_tail->pre = m_curPtr->pre;
-						m_curPtr->pre->next = m_tail;
-					}
-					else {
-						m_curPtr->next->pre = m_curPtr->pre;
-						m_curPtr->pre->next = m_curPtr->next;
-					}
-				}
-				data = m_curPtr->data;
-				temp = m_curPtr;
-				m_curPtr = m_curPtr->pre;
-				delete temp;
-				m_length--;
-				break;
-			}
-		}
+int SortedLinkedListType<T>::Delete(T& data) {
+	if (isEmpty()) {
+		return 0;
 	}
-	/*m_curPtr = m_head;
+	else if (DeleteTail(data)) {
+		return 1;
+	}
+	else {
+		m_curPtr = m_head;
+		while (m_curPtr->next != m_tail) {
+			m_curPtr = m_curPtr->next;
+			if (m_curPtr->data == data) {
+				m_curPtr->next->pre = m_curPtr->pre;
+				m_curPtr->pre->next = m_curPtr->next;
+				delete m_curPtr;
+				m_length--;
+				return 1;
+			}
+		}
+		return 0;
+	}
+}
+
+//LinkedList에서 특정 노드를 갱신한다.
+template <typename T>
+void SortedLinkedListType<T>::Replace(const T& data) {
+	m_curPtr = m_head;
 	while (m_curPtr->next != m_tail) {
 		m_curPtr = m_curPtr->next;
 		if (m_curPtr->data == data) {
-			m_curPtr->next->pre = m_curPtr->pre;
-			m_curPtr->pre->next = m_curPtr->next;
-			delete m_curPtr;
-			m_length--;
+			m_curPtr->data = data;
 			return;
 		}
-	}*/
+	}
 }
 
 //LinkedList의 모든 요소들을 삭제한다.
@@ -345,10 +284,31 @@ NodeType<T>* SortedLinkedListType<T>::GetNext(T& data) {
 	}
 }
 
+template <typename T>
+NodeType<T>* SortedLinkedListType<T>::GetPre(T& data) {
+	if (m_curPtr->pre != m_head) {
+		m_curPtr = m_curPtr->pre;
+		data = m_curPtr->data;
+		return m_curPtr;
+	}
+	else {
+		m_curPtr = m_tail;
+		return nullptr;
+	}
+}
+
+
+
 //LinkedList의 반복자를 초기화한다.
 template <typename T>
 void SortedLinkedListType<T>::ResetList() {
 	m_curPtr = m_head;
+}
+
+//LinkedList의 반복자를 초기화한다.
+template <typename T>
+void SortedLinkedListType<T>::ResetListForGetPre() {
+	m_curPtr = m_tail;
 }
 
 //LinkedList 내의 노드 갯수를 반환한다.
@@ -381,45 +341,111 @@ bool SortedLinkedListType<T>::isFull() {
 
 //LinkedList에 동일한 data를 가진 Node가 존재하는지 검사한다.
 template <typename T>
-int SortedLinkedListType<T>::Get(T& data) {	
-	if (m_head->next != m_tail && m_tail->pre != m_head) //node가 한개 이상 존재할때
-	{
-		ResetList();
-		/*if (m_length == 1)
+int SortedLinkedListType<T>::Get(T& data) {
+	if (m_length == 0) {
+		return 0;
+	}
+	else if (CheckBack(data)){
+		return 1;
+	}
+	else {
+		m_curPtr = m_head;
+		while (m_curPtr->next != m_tail) {
 			m_curPtr = m_curPtr->next;
-		if (data == m_curPtr->data) {
-			data = m_curPtr->data;
-			return 1;
-		}*/
-		if (m_head->next->data == m_tail->pre->data) {//node가 단한개만 존재할때
-			m_curPtr = m_curPtr->next;
-			if (data == m_curPtr->data) {
+			if (m_curPtr->data == data) {
 				data = m_curPtr->data;
 				return 1;
 			}
 		}
-		else if (data - m_curPtr->next->data < m_tail->pre->data - data) {//data 값이 tail보다 head쪽에 더 가까울때
-			while (m_curPtr->next != m_tail) {
-				m_curPtr = m_curPtr->next;
-				if (m_curPtr->data == data) {
-					data = m_curPtr->data;
-					return 1;
-				}
-			}
-		}
-		else if (data - m_curPtr->next->data > m_tail->pre->data - data) {//data 값이 head보다 tail쪽에 더 가까울때
-			m_curPtr = m_tail;
-			while (m_curPtr->pre != m_head) {
-				m_curPtr = m_curPtr->pre;
-				if (m_curPtr->data == data) {
-					data = m_curPtr->data;
-					return 1;
-				}
-			}
-		}
 	}
-	else
-		return 0;
-
 	return 0;
 }
+
+template <typename T>
+int SortedLinkedListType<T>::CheckBack(T& data) {
+	if (m_length == 0) {
+		return 0;
+	}
+	else if(m_tail->pre->data == data) {
+		data = m_tail->pre->data;
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+template <typename T>
+int SortedLinkedListType<T>::InsertTail(T& data) {
+	if (isFull()) {
+		return 0;
+	}
+	else {
+		if (m_length == 0 || m_tail->pre->data < data) {
+			NodeType<T>* temp = new NodeType<T>;
+			temp->data = data;
+			
+			temp->next = m_tail;
+			temp->pre = m_tail->pre;
+			m_tail->pre->next = temp;
+			m_tail->pre = temp;
+
+			m_length++;
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+}
+
+
+template <typename T>
+int SortedLinkedListType<T>::DeleteTail(T& data) {
+	if (m_length == 0) {
+		return 0;
+	}
+	else if (m_tail->pre->data == data) {
+		m_curPtr = m_tail->pre;
+		m_curPtr->pre->next = m_tail;
+		m_tail->pre = m_curPtr->pre;
+		m_length--;
+		delete m_curPtr;
+		m_curPtr = nullptr;
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+//대입연산자 오버로딩
+template <typename T>
+SortedLinkedListType<T>& SortedLinkedListType<T>::operator=(const SortedLinkedListType<T>& list) {
+	MakeEmpty();
+	m_head->pre = nullptr;
+	m_head->next = m_tail;
+	m_tail->next = nullptr;
+	m_tail->pre = m_head;
+	m_curPtr = m_head;
+	m_length = list.m_length;
+	/*
+		list 내의 모든 노드에서 data만을 뽑아와 해당 SortedLinkedListType객체의 리스트를 구성한다.
+	*/
+	NodeType<T>* list_curPtr = list.m_head;
+	while (list_curPtr->next != list.m_tail) {
+		list_curPtr = list_curPtr->next;
+		NodeType<T>* tempPtr = new NodeType<T>;
+		tempPtr->data = list_curPtr->data;
+		while (m_curPtr->next != m_tail)
+			m_curPtr = m_curPtr->next;
+		m_curPtr->next->pre = tempPtr;
+		tempPtr->next = m_curPtr->next;
+		tempPtr->pre = m_curPtr;
+		m_curPtr->next = tempPtr;
+	}
+	return *this;
+}
+
+
+

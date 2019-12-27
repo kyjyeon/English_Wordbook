@@ -4,37 +4,34 @@
 class SimpleVocaType {
 public:
 
-	//기본생성자
+	//Default constuctor
 	SimpleVocaType() {
 		m_ptr = nullptr;
 	}
 
-	//m_ptr 값을 초기화한다.
+	//Set the pointer member to point parameter address
 	void SetPtr(VocaType* ptr) {
 		m_ptr = ptr;
 	}
 
-	//m_ptr을 반환한다.
+	//return current pointer address.
 	VocaType* GetPtr() {
 		return m_ptr;
 	}
 
-	//인자가 가리키는 VocaType의 id값과 비교하고 인자보다 작으면 true반환, 아니면 false
+	//Compare between current class Vocatype pointer value id and parameter VocaType pointer value. If larger return true, if smaller return false
 	bool operator < (SimpleVocaType& s_voca) {
 		return (m_ptr->GetId() < s_voca.GetPtr()->GetId());
 	}
 
-	//인자가 가리키는 VocaType의 id값과 비교하고 인자보다 크면 true반환, 아니면 false
+	//Compare between current class Vocatype pointer value id and parameter VocaType pointer value. If larger return false, if smaller return true
 	bool operator > (SimpleVocaType& s_voca) {
 		return (m_ptr->GetId() > s_voca.GetPtr()->GetId());
 	}
 
-	//인자가 가리키는 VocaType의 id값과 비교하고 인자와 같으면 true반환, 아니면 false
+	//Compare between current class Vocatype pointer value id and parameter VocaType pointer value. If same return true, if different return false
 	bool operator == (SimpleVocaType& s_voca) {
 		return (m_ptr->GetId() == s_voca.GetPtr()->GetId());
-	}
-	int operator - (SimpleVocaType& s_voca) {
-		return (abs(m_ptr->GetId() - s_voca.GetPtr()->GetId()));
 	}
 
 	//m_id 값을 초기화한다.
@@ -53,5 +50,5 @@ public:
 
 private:
 	//int m_id;				//SimpleVoca의 고유 id값
-	VocaType* m_ptr;		//SimplaVoca의 포인터 변수
+	VocaType* m_ptr;		//Pointer variable of SimplaVoca class
 };

@@ -24,6 +24,7 @@ string VocaType::GetKorean() {
 	return m_korean;
 }
 
+
 double VocaType::GetCorrect() {
 	return m_correct;
 }
@@ -37,9 +38,10 @@ double VocaType::GetCorrectPercent() {
 		return 0;
 	else if (m_correct > 0 && m_wrong == 0)
 		return 100;
-
-	double m_correctPercent = double(double(m_correct / (m_correct + m_wrong)) * 100);
-	return m_correctPercent;
+	else {
+		double m_correctPercent = double(double(m_correct / (m_correct + m_wrong)) * 100);
+		return m_correctPercent;
+	}
 }
 
 void VocaType::PlusCorrect() {
@@ -49,6 +51,7 @@ void VocaType::PlusCorrect() {
 void VocaType::PlusWrong() {
 	++m_wrong;
 }
+
 
 //id를 입력한다.
 void VocaType::SetId(int id) {
@@ -80,13 +83,13 @@ void VocaType::SetIdFromKB() {
 
 //spelling을 키보드로 입력한다.
 void VocaType::SetEnglishFromKB() {
-	cout << "\n\t단어: ";
+	cout << "\n\t English: ";
 	cin >> m_english;
 }
 
 //뜻을 키보드로 입력한다.
 void VocaType::SetKoreanFromKB() {
-	cout << "\n\t뜻: ";
+	cout << "\n\t Korean: ";
 	cin >> m_korean;
 }
 
@@ -104,12 +107,12 @@ void VocaType::DisplayId() {
 
 //spelling을 화면에 출력한다.
 void VocaType::DisplayEnglish() {
-	cout << "\n\t단어: " << m_english << endl;
+	cout << "\n\tEnglish: " << m_english << endl;
 }
 
 //뜻을 화면에 출력한다.
 void VocaType::DisplayKorean() {
-	cout << "\n\t뜻: " << m_korean << endl;
+	cout << "\n\tKorean: " << m_korean << endl;
 }
 
 //id, spelling, 뜻을 화면에 출력한다.

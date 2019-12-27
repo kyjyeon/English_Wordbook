@@ -7,38 +7,38 @@ using namespace std;
 
 class VocaType {
 public:
-	VocaType();												//생성자(m_id, m_english, m_korean을 초기화한다.)
-	int GetId();											//id를 반환한다.
-	string GetEnglish();									//spelling을 반환한다.
-	string GetKorean();										//뜻을 반환한다
-	double GetCorrect();
-	double GetWrong();
-	double GetCorrectPercent();
-	void PlusCorrect();
-	void PlusWrong();
-	void SetId(int id);										//id를 입력한다.
-	void SetEnglish(string english);						//spelling을 입력한다.
-	void SetKorean(string korean);							//뜻을 입력한다.
-	void SetVoca(int id, string english, string korean);	//id, spelling, 뜻을 입력한다.
-	void SetIdFromKB();										//id를 키보드로 입력한다.
-	void SetEnglishFromKB();								//spelling을 키보드로 입력한다.
-	void SetKoreanFromKB();									//뜻을 키보드로 입력한다.
-	void SetVocaFromKB();									//id, spelling, 뜻을 입력한다.
-	void DisplayId();										//id값을 화면에 출력한다.
-	void DisplayEnglish();									//spelling을 화면에 출력한다.
-	void DisplayKorean();									//뜻을 화면에 출력한다.
-	void DisplayVoca();										//id, spelling, 뜻을 화면에 출력한다.
-	void DisplayCorrectPercent();
-	bool operator<(const VocaType& voca);					//인자와 spelling을 비교하고 인자보다 작으면 true반환, 아니면 false
-	bool operator>(const VocaType& voca);					//인자와 spelling을 비교하고 인자보다 크면 true반환, 아니면 false
-	bool operator==(const VocaType& voca);					//인자와 spelling을 비교하고 인자보다 같은면 true반환, 아니면 false
-	int ReadDataFromFile(ifstream& fin);					//입력 파일디스크립터로부터 Voca타입을 복사해온다. id, english, korean순서로 받아온다는 것을 명심
-	int WriteDataToFile(ofstream& fout);					//출력 파일디스크립터에 Voca타입을 작성한다.
+	VocaType();												//Default constructor setting member variables
+	int GetId();											//return member id
+	string GetEnglish();									//return English word
+	string GetKorean();										//return Korean meaning of English
+	double GetCorrect();									//return number of correct test answers the user made 
+	double GetWrong();										//return number of wrong test answers the user made
+	double GetCorrectPercent();								//return user's test answer correctness percentage by calculating correct and wrong answers 
+	void PlusCorrect();										//Increase m_correct member variable
+	void PlusWrong();										//Increase m_wrong member variable
+	void SetId(int id);										//Set id
+	void SetEnglish(string english);						//Set English.
+	void SetKorean(string korean);							//Set Korean.
+	void SetVoca(int id, string english, string korean);	//Set id, english, korean
+	void SetIdFromKB();										//Set id from keyboard.
+	void SetEnglishFromKB();								//Set English from.
+	void SetKoreanFromKB();									//Set Korean meaning input from keyboard
+	void SetVocaFromKB();									//Set id, spelling, Korean meaning
+	void DisplayId();										//Display member id.
+	void DisplayEnglish();									//Display member English.
+	void DisplayKorean();									//Display member Korean.
+	void DisplayVoca();										//Display member id, English, Korean.
+	void DisplayCorrectPercent();							//Display test score correct percentage
+	bool operator<(const VocaType& voca);					//Compare between current class Vocatype pointer value id and parameter VocaType pointer value. If smaller return true, if larger return false
+	bool operator>(const VocaType& voca);					//Compare between current class Vocatype pointer value id and parameter VocaType pointer value. If larger return true, if smaller return false
+	bool operator==(const VocaType& voca);					//Compare between current class Vocatype pointer value id and parameter VocaType pointer value. If same return true, if different return false
+	int ReadDataFromFile(ifstream& fin);					//Copy VocaType data from input file descriptor.Copying from id, english, korean member order
+	int WriteDataToFile(ofstream& fout);					//Write VocaType data to output file descriptor 
 
 private:
-	int m_id;												//단어의 고유 id값
-	string m_english;										//단어의 spelling을 저장하는 변수이며 단어검색, 내 단어장 관리에서 key값
-	string m_korean;										//단어의 뜻을 저장하는 변수
-	double m_correct;
-	double m_wrong;
+	int m_id;												//English word id
+	string m_english;										//Spelling of English word, key value for myVocaList and also for searching
+	string m_korean;										//English word Korean meaning
+	double m_correct;										//number of correct test answers the user made
+	double m_wrong;											//number of wrong test answers the user made
 };
