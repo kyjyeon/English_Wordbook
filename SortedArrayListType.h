@@ -107,7 +107,7 @@ private:
 };
 
 /**
-*	기본 생성자
+*	Default Constructor
 */
 template <typename T>
 SortedArrayList<T>::SortedArrayList() {

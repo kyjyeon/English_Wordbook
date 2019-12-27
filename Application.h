@@ -25,12 +25,6 @@ public:
 	int GetCommand();				//Get user input from the main program
 	int GetCommandLogIn();			//Get user input learn vocabulary program
 	int GetCommandManageUser();		// Get user info from User Manage program
-	/**
-	*	@brief      유저의 로그인 정보를 입력받고 정보가 적합한지 검사하고 권한을 분류한다.
-	*	@pre	        유저리스트가 초기화되어있어야한다.
-	*	@post       m_curUser가 로그인한 유저를 가리키게 된다.
-	*	@return     로그인에 실패하면 0, 일반 유저 로그인에 성공하면 1, 관리자 로그인에 성공하면 2를 반환한다.
-	*/
 	int VerifyLogIn();				//Verify the user login
 	void LogOut();					//User Logs out from the program
 	void CreateUser();				//Add user

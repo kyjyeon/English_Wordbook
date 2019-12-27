@@ -30,7 +30,7 @@ void Application::Run() {
             ShowRanker();
             break;
         case 0:
-            cout << "\t종료합니다.." << endl;
+            cout << "\tQuit.." << endl;
             return;
         default:
             cout << "Caution" << endl;
@@ -67,7 +67,7 @@ void Application::LogIn() {
                 CheckMyInfo();
                 break;
             case 0:
-                cout << "\t로그아웃.." << endl;
+                cout << "\tlogout.." << endl;
                 LogOut();
                 return;
             default:
@@ -92,7 +92,7 @@ void Application::LogIn() {
                 CheckAllUser();
                 break;
             case 0:
-                cout << "\t로그아웃.." << endl;
+                cout << "\tlogout.." << endl;
                 LogOut();
                 return;
             default:
@@ -109,11 +109,11 @@ void Application::LogIn() {
 int Application::GetCommand() {
     int c;
     cout << endl << endl;
-    cout << "\t************ 영어단어 학습프로그램 **************" << endl << endl;
-    cout << "\t    1. 로그인" << endl;
-    cout << "\t    2. 회원가입" << endl;
-    cout << "\t    3. 랭킹조회" << endl;
-    cout << "\t    0. 종료" << endl << endl;
+    cout << "\t************ English Learning Program **************" << endl << endl;
+    cout << "\t    1. Login" << endl;
+    cout << "\t    2. Register" << endl;
+    cout << "\t    3. Test Ranking" << endl;
+    cout << "\t    0. Quit" << endl << endl;
     cout << "\t****************************" << endl << endl;
     cout << endl << "\t Choose a Command--> ";
     cin >> c;
@@ -125,14 +125,14 @@ int Application::GetCommand() {
 int Application::GetCommandLogIn() {
     int c;
     cout << endl << endl;
-    cout << "\t******** " << m_curUser->GetName() << "님, 안녕하세요 **********" << endl << endl;
-    cout << "\t    1. 단어 검색하기" << endl;
-    cout << "\t    2. 단어 시험보기" << endl;
-    cout << "\t    3. 단어 학습하기" << endl;
-    cout << "\t    4. 내 단어장 관리하기" << endl;
-    cout << "\t    5. 내 정보 수정하기" << endl;
-    cout << "\t    6. 내 정보 조회하기" << endl;
-    cout << "\t    0. 로그아웃" << endl << endl;
+    cout << "\t******** User " << m_curUser->GetName() << ", Welcome **********" << endl << endl;
+    cout << "\t    1. Search Vocabulary" << endl;
+    cout << "\t    2. Start Test" << endl;
+    cout << "\t    3. Start Learning Program" << endl;
+    cout << "\t    4. Check My Vocabulary List" << endl;
+    cout << "\t    5. Modify My Info" << endl;
+    cout << "\t    6. Check My Info" << endl;
+    cout << "\t    0. Logout" << endl << endl;
     cout << "\t****************************" << endl << endl;
     cout << endl << "\t Choose a Command--> ";
     cin >> c;
@@ -200,21 +200,21 @@ int Application::VerifyLogIn() {
         if (dummy2.GetPtr()->GetPassword().compare(temp2.GetPtr()->GetPassword()) == 0) {
             m_curUser = m_AllSimpleUList.GetCurPtr()->GetPtr();
             if (m_curUser->GetStatus() == USER) {
-                cout << "\n\t**** 유저 로그인 성공****\n";
+                cout << "\n\t**** User Login Success****\n";
                 return USER;
             }
             else {
-                cout << "\n\t**** 관리자 로그인 성공****\n";
+                cout << "\n\t**** Admin Login Sucess****\n";
                 return ADMIN;
             }
         }
         else {
-            cout << "\n\t**** 비밀번호 정보가 올바르지 않습니다 ****\n";
+            cout << "\n\t**** Incorrect Password ****\n";
             return 0;
         }
     }
     else {
-        cout << "\n\t**** id 정보가 올바르지 않습니다 ****\n";
+        cout << "\n\t**** Incorrect ID ****\n";
     }
     return 0;
 }
@@ -275,50 +275,29 @@ void Application::CreateUser() {
 
 //유저를 삭제한다.
 void Application::DeleteUser() {
-    /*UserType tempUser;
-    cout << "\n\t**** 삭제할 유저id 입력 ****\n";
-    tempUser.SetIdFromKB();
-    if (!m_AllUserList.Get(tempUser)) {
-        cout << "\n\t해당 id가 없습니다.\n";
-        return;
-    }
-    else {
-        if (tempUser.GetStatus() == ADMIN) {
-            cout << "\n\t관리자 계정은 삭제할 수 없습니다.\n";
-            return;
-        }
-        else {
-            if (m_AllUserList.Delete(tempUser)) {
-                cout << "\n\t계정이 삭제되었습니다.\n";
-            }
-            else {
-                cout << "\n\tt계정삭제에 실패하였습니다.\n";
-            }
-        }
-    }*/
 
     UserType tempUser;
     SimpleUserType2 tempSimpleUser;
-    cout << "\n\t**** 삭제할 유저id 입력 ****\n";
+    cout << "\n\t**** Insert Deleting User Info ****\n";
     tempUser.SetIdFromKB();
     tempSimpleUser.SetPtr(&tempUser);
     if (!m_AllSimpleUList.Get(tempSimpleUser)) {
-        cout << "\n\t해당 id가 없습니다.\n";
+        cout << "\n\tUser Info doesn't exist.\n";
         return;
     }
     else {
         if (tempSimpleUser.GetPtr()->GetStatus() == ADMIN) {
-            cout << "\n\t관리자 계정은 삭제할 수 없습니다.\n";
+            cout << "\n\tAdmin User cannot be erased.\n";
             return;
         }
         else {
             if (m_AllSimpleUList.Delete(tempSimpleUser) && m_AllUserList.Delete(tempUser))
             {
                 m_AllSimpleUList.ReduceSize();
-                cout << "\n\t계정이 삭제되었습니다.\n";
+                cout << "\n\tUser has been deleted.\n";
             }     
             else {
-                cout << "\n\tt계정삭제에 실패하였습니다.\n";
+                cout << "\n\ttFailed to erase User.\n";
             }
         }
     }
@@ -326,16 +305,7 @@ void Application::DeleteUser() {
 
 //모든 유저정보를 화면에 출력한다.
 void Application::CheckAllUser() {
-    /*cout << "\n\t**** 전체 유저정보 ****\n";
-    UserType tempUser;
-    m_AllUserList.ResetList();
-    while (m_AllUserList.GetNext(tempUser) != nullptr) {
-        if (tempUser.GetStatus() != ADMIN) {
-            tempUser.DisplayAll();
-            cout << "\n\t------------\n";
-        }
-    }*/
-    cout << "\n\t**** 전체 유저정보 ****\n";
+    cout << "\n\t**** All User Info ****\n";
     SimpleUserType2 tempSimpleUser;
     m_AllSimpleUList.ResetList();
     while (m_AllSimpleUList.GetNext(tempSimpleUser) != -1) {
@@ -366,7 +336,7 @@ void Application::EditUser() {
             
             tempSimpleUser.GetPtr()->SetPwFromKB();
             tempSimpleUser.GetPtr()->SetNameFromKB();
-            cout << "\n\t---------- 유저정보 업데이트 완료 ----------\n";
+            cout << "\n\t---------- User Info Update Complete ----------\n";
             tempSimpleUser.GetPtr()->DisplayAll();
         }
     }
@@ -374,28 +344,9 @@ void Application::EditUser() {
 
 //랭커의 정보를 화면에 출력한다.
 void Application::ShowRanker() {
-    //      배열로 구현한 showRanker();
-    //    SortedArrayList<SimpleUserType> RankerList;
-    //    int rank = 1;
-    //    cout << "\n\t**** 랭크 정보 ****\n";
-    //    UserType tempUser;
-    //    SimpleUserType tempSimpleUser;
-    //    m_AllUserList.ResetList();
-    //    while(m_AllUserList.GetNext(tempUser) != nullptr) {
-    //        if(tempUser.GetTestScore() != -1) {
-    //            tempSimpleUser.SetPtr(m_AllUserList.GetCurPtr());
-    //            RankerList.Insert(tempSimpleUser);
-    //        }
-    //    }
-    //    RankerList.ResetList();
-    //    while(RankerList.GetNext(tempSimpleUser) != -1) {
-    //        cout << "\n\t" << rank << "등: " << tempSimpleUser.GetPtr()->GetId() << ", 점수: " << tempSimpleUser.GetPtr()->GetTestScore() << endl;
-    //        rank++;
-    //    }
-
     MaxHeap<SimpleUserType> RankingList;
     int Rank = 1;
-    cout << "\n\t**** 랭크 정보 ****\n";
+    cout << "\n\t**** Rank Info ****\n";
     UserType tempUser;
     SimpleUserType tempSimpleUser;
     SimpleUserType2 tempSimpleUser2;
@@ -411,7 +362,7 @@ void Application::ShowRanker() {
             break;
         SimpleUserType simple;
         simple = RankingList.Pop();
-        cout << "\n\t" << Rank << "등(ID): " << simple.GetPtr()->GetId() << ", 점수: " << simple.GetPtr()->GetTestScore() << "점" << endl;
+        cout << "\n\t" << Rank << " (ID): " << simple.GetPtr()->GetId() << ", 점수: " << simple.GetPtr()->GetTestScore() << "점" << endl;
 
         Rank++;
     }
@@ -420,13 +371,13 @@ void Application::ShowRanker() {
 
 //본인 계정의 정보를 화면에 출력한다.
 void Application::CheckMyInfo() {
-    cout << "\n\t**** 내 정보 ****\n";
+    cout << "\n\t**** My Info ****\n";
     m_curUser->DisplayAll();
 }
 
 //본인 계정의 정보를 수정한다.
 void Application::EditMyInfo() {
-    cout << "\n\t**** 정보수정 ****\n";
+    cout << "\n\t**** Modify Info ****\n";
     m_curUser->SetPwFromKB();
     m_curUser->SetNameFromKB();
 }
@@ -440,7 +391,7 @@ void Application::SearchVoca() {
 
     //영어 단어 프로그램에 찾는 영어단어가 존재하지않을 경우
     if (!m_AllVocaList.Get(Item)) {
-        cout << "\n\t검색한 영어단어는 프로그램 내에 존재하지 않습니다." << endl;
+        cout << "\n\Searched word does not exist." << endl;
     }
     //영어 단어 프로그램에 찾는 영어단어가 존재할 경우
     else {
@@ -485,14 +436,14 @@ void Application::TestVoca() {
             if (m_TestVocaList.getLength() == 0)
                 break;
             else {
-                cout << "\t단어테스트 ( " << count << "/ 50 ) => 정답 : " << correct << " 오답 : " << incorrect << endl;
+                cout << "\tVocabulary Test ( " << count << "/ 50 ) => Correct : " << correct << " Incorrect : " << incorrect << endl;
 
                 m_TestVocaList.pop(simpleTempVoca);
-                cout << "\n\tKorean: " << simpleTempVoca.GetPtr()->GetKorean() << "( 정답률: " << simpleTempVoca.GetPtr()->GetCorrectPercent() << "% )" << endl;
-                cout << "\n\t0. 나가기 " << endl;
+                cout << "\n\tKorean: " << simpleTempVoca.GetPtr()->GetKorean() << "( Correct Percentage: " << simpleTempVoca.GetPtr()->GetCorrectPercent() << "% )" << endl;
+                cout << "\n\t0. Quit " << endl;
                 cout << "\n\t->"; cin >> English; cout << endl;
                 if (English == "0") {
-                    cout << endl << "\t<<결과>> 정답 : " << correct << " 오답 : " << incorrect << " 점수 : " << correct * 2 << "점 " << endl;
+                    cout << endl << "\t<<Result>> Correct : " << correct << " Incorrect : " << incorrect << " Score : " << correct * 2 << "Point " << endl;
                     m_TestVocaList.MakeEmpty();
                     if ((correct * 2) > m_curUser->GetTestScore()) {
                         m_curUser->SetTestScore(correct * 2);
@@ -503,17 +454,17 @@ void Application::TestVoca() {
                     incorrect++;
                     count++;
                     English = simpleTempVoca.GetPtr()->GetEnglish();
-                    cout << "\t\t오답!! (" << English << ")" << endl;
+                    cout << "\t\tIncorrect!! (" << English << ")" << endl;
                     simpleTempVoca.GetPtr()->PlusWrong();
                     if (!(m_curUser->GetList()->Get(simpleTempVoca))) {
-                        cout << "\n\t\t해당 단어를 내 단어장에 추가하시겠습니까?\n\t\t(Y/N):"; cin >> English;
+                        cout << "\n\t\tAdd this word to my list?\n\t\t(Y/N):"; cin >> English;
                         cout << endl;
                         if (English.compare("Y") == 0) {
                             if (m_curUser->AddVoca(simpleTempVoca)) {
-                                cout << "\t\t내 단어장에 추가되었습니다!!\n";
+                                cout << "\t\tAdded to my list!!\n";
                             }
                             else {
-                                cout << "\t\t내 단어장 추가에 실패하였습니다..\n";
+                                cout << "\t\tFailed to add to my list..\n";
                             }
                         }
                     }
@@ -522,12 +473,12 @@ void Application::TestVoca() {
                     correct++;
                     count++;
                     simpleTempVoca.GetPtr()->PlusCorrect();
-                    cout << "\t\t정답!!" << endl << endl;
+                    cout << "\t\tCorrect!!" << endl << endl;
                 }
             }
         }
         ios_base::fmtflags f(cout.flags()); //precision 출력설정 초기화
-        cout << endl << "\t<<결과>> 정답 : " << correct << " 오답 : " << incorrect << " 점수 : " << correct * 2 << "점 " << endl;
+        cout << endl << "\t<<Result>> Correct : " << correct << " Incorrect : " << incorrect << " Score : " << correct * 2 << "Point " << endl;
         m_TestVocaList.MakeEmpty();
         if ((correct * 2) > m_curUser->GetTestScore()) {
             m_curUser->SetTestScore(correct * 2);
@@ -710,7 +661,7 @@ void Application::AddMyVoca() {
 
     if (m_curUser->GetQueue()->GetLength() != 0) {
         int cnt = 0;
-        cout << "\n\t최근 검색한 단어(5개): \n";
+        cout << "\n\tRecent Searchec Words(5개): \n";
         while (m_curUser->GetQueue()->deQueue(simpleTempVoca)) {
             cout << "\t" << cnt++ + 1 << ". English: " << simpleTempVoca.GetPtr()->GetEnglish() << ", Korean: " << simpleTempVoca.GetPtr()->GetKorean() << endl;
         }
@@ -749,7 +700,7 @@ void Application::DeleteMyVoca() {
         }
     }
     else {                                            //프로그램에 삭제하려는 영어단어가 존재하지 않는 경우
-        cout << "\n\t해당 단어는 프로그램에 존재하지 않음\n";
+        cout << "\n\tWord doesn't exist\n";
     }
 }
 

@@ -101,11 +101,11 @@ void UserType::SetRecordFromKB() {
 }
 
 const string UserType::currentDateTime() {
-    time_t     now = time(0); //현재 시간을 time_t 타입으로 저장
+    time_t     now = time(0); //Save current time as time_t
     struct tm  tstruct;
     char       buf[80];
     localtime_s(&tstruct, &now);
-    strftime(buf, sizeof(buf), "%Y년 %m월 %d일 %H시 %M분 %S초", &tstruct); // YyyymmddhhMMSS 형태의 스트링
+    strftime(buf, sizeof(buf), "%YYear %mMonth %dDay %HHour %MMin %SSec", &tstruct); // YyyymmddhhMMSS shape string type
 
     return buf;
 }
@@ -196,7 +196,7 @@ int UserType::DeleteVoca(SimpleVocaType& simplevoca) {
 
 void UserType::DisplayVoca() {
     if (!m_MyVocaList.isEmpty()) {
-        cout << "\n\t********* 내 단어장 목록 *********\n";
+        cout << "\n\t********* My Vocabulary List *********\n";
         m_MyVocaList.ResetList();
         SimpleVocaType dummy;
         while (m_MyVocaList.GetNext(dummy) != nullptr) {
@@ -205,14 +205,14 @@ void UserType::DisplayVoca() {
         return;
     }
     else {
-        cout << "\n\t현재 내 단어장이 비어있습니다.\n";
+        cout << "\n\tThe List is Empty.\n";
         return;
     }
 }
 
 void UserType::DisplayVocaReverse() {
     if (!m_MyVocaList.isEmpty()) {
-        cout << "\n\t********* 내 단어장 목록(역순) *********\n";
+        cout << "\n\t********* My Vocabulary List(Reverse) *********\n";
         m_MyVocaList.ResetListForGetPre();
         SimpleVocaType dummy;
         while (m_MyVocaList.GetPre(dummy) != nullptr) {
@@ -221,19 +221,19 @@ void UserType::DisplayVocaReverse() {
         return;
     }
     else {
-        cout << "\n\t현재 내 단어장이 비어있습니다.\n";
+        cout << "\n\tThe List is Empty.\n";
         return;
     }
 }
 
 void UserType::DeleteAllVoca() {
     if (!m_MyVocaList.isEmpty()) {
-        cout << "\n\t********* 내 단어장 비우기 *********\n";
+        cout << "\n\t********* Empty my List *********\n";
         m_MyVocaList.MakeEmpty();
         return;
     }
     else {
-        cout << "\n\t현재 내 단어장이 비어있습니다.\n";
+        cout << "\n\tThe List is Empty.\n";
         return;
     }
 }

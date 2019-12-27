@@ -33,14 +33,8 @@ public:
 	*/
 	int Insert(T& data);									//리스트 내에 요소 추가함수(성공시 1, 실패시 0 반환)
 
-	/*
-	*	@brief	Return address data of current pointer is pointing
-	*/
 	int Delete(T& data);									//리스트 내에 요소 제거함수(성공시 1, 실패시 0 반환)
 
-	/*
-	*	@brief	Return address data of current pointer is pointing
-	*/
 	void Replace(const T& data);
 
 	/*
