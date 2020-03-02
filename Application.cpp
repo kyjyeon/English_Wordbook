@@ -2,7 +2,7 @@
 #include "Application.h"
 
 
-//»ı¼ºÀÚ
+//Constructor
 Application::Application() {
     m_command = -1;
     m_curUser = nullptr;
@@ -15,18 +15,18 @@ Application::Application() {
     InitWordBook();
 }
 
-//ÇÁ·Î±×·¥ ½ÇÇàÇÔ¼ö
+//Program runner
 void Application::Run() {
     while (1) {
         m_command = GetCommand();
         switch (m_command) {
-        case 1: // ·Î±×ÀÎ
+        case 1: // ë¡œê·¸ì¸
             LogIn();
             break;
-        case 2: // È¸¿ø°¡ÀÔ
+        case 2: // íšŒì›ê°€ì…
             CreateUser();
             break;
-        case 3: // ·©Å·Á¶È¸
+        case 3: // ë­í‚¹ì¡°íšŒ
             ShowRanker();
             break;
         case 0:
@@ -39,7 +39,7 @@ void Application::Run() {
     }
 }
 
-//À¯Àú°¡ ¿µ¾î´Ü¾î ÇĞ½À ÇÁ·Î±×·¥¿¡ Á¢¼ÓÇÑ´Ù.
+//ìœ ì €ê°€ ì˜ì–´ë‹¨ì–´ í•™ìŠµ í”„ë¡œê·¸ë¨ì— ì ‘ì†í•œë‹¤.
 void Application::LogIn() {
     int permission = VerifyLogIn();
     if (permission == USER) {
@@ -105,7 +105,7 @@ void Application::LogIn() {
         return;
 }
 
-//ÇÁ·Î±×·¥ ½ÇÇàÇÔ¼ö¿¡¼­ »ç¿ëÀÚÀÇ ¸í·ÉÀ» ¹Ş´Â´Ù.
+//í”„ë¡œê·¸ë¨ ì‹¤í–‰í•¨ìˆ˜ì—ì„œ ì‚¬ìš©ìì˜ ëª…ë ¹ì„ ë°›ëŠ”ë‹¤.
 int Application::GetCommand() {
     int c;
     cout << endl << endl;
@@ -121,7 +121,7 @@ int Application::GetCommand() {
     return c;
 }
 
-//ÇĞ½À ÇÁ·Î±×·¥¿¡¼­ »ç¿ëÀÚÀÇ ¸í·ÉÀ» ÀÔ·Â¹Ş´Â´Ù.
+//í•™ìŠµ í”„ë¡œê·¸ë¨ì—ì„œ ì‚¬ìš©ìì˜ ëª…ë ¹ì„ ì…ë ¥ë°›ëŠ”ë‹¤.
 int Application::GetCommandLogIn() {
     int c;
     cout << endl << endl;
@@ -140,15 +140,15 @@ int Application::GetCommandLogIn() {
     return c;
 }
 
-//À¯Àú°ü¸®¿¡¼­ »ç¿ëÀÚÀÇ ¸í·ÉÀ» ¹Ş´Â´Ù.
+//ìœ ì €ê´€ë¦¬ì—ì„œ ì‚¬ìš©ìì˜ ëª…ë ¹ì„ ë°›ëŠ”ë‹¤.
 int Application::GetCommandManageUser() {
     int c;
     cout << endl << endl;
-    cout << "\t******** °ü¸®ÀÚ´Ô, ¾È³çÇÏ¼¼¿ä **********" << endl << endl;
-    cout << "\t    1. À¯ÀúÁ¤º¸ »èÁ¦ÇÏ±â" << endl;
-    cout << "\t    2. À¯ÀúÁ¤º¸ ¼öÁ¤ÇÏ±â" << endl;
-    cout << "\t    3. À¯ÀúÁ¤º¸ Á¶È¸ÇÏ±â" << endl;
-    cout << "\t    0. ·Î±×¾Æ¿ô" << endl << endl;
+    cout << "\t******** ê´€ë¦¬ìë‹˜, ì•ˆë…•í•˜ì„¸ìš” **********" << endl << endl;
+    cout << "\t    1. ìœ ì €ì •ë³´ ì‚­ì œí•˜ê¸°" << endl;
+    cout << "\t    2. ìœ ì €ì •ë³´ ìˆ˜ì •í•˜ê¸°" << endl;
+    cout << "\t    3. ìœ ì €ì •ë³´ ì¡°íšŒí•˜ê¸°" << endl;
+    cout << "\t    0. ë¡œê·¸ì•„ì›ƒ" << endl << endl;
     cout << "\t****************************" << endl << endl;
     cout << endl << "\t Choose a Command--> ";
     cin >> c;
@@ -156,11 +156,11 @@ int Application::GetCommandManageUser() {
     return c;
 }
 
-//À¯ÀúÀÇ ·Î±×ÀÎ Á¤º¸¸¦ ÀÔ·Â¹Ş°í Á¤º¸°¡ ÀûÇÕÇÑÁö °Ë»çÇÏ°í ±ÇÇÑÀ» ºĞ·ùÇÑ´Ù.
+//ìœ ì €ì˜ ë¡œê·¸ì¸ ì •ë³´ë¥¼ ì…ë ¥ë°›ê³  ì •ë³´ê°€ ì í•©í•œì§€ ê²€ì‚¬í•˜ê³  ê¶Œí•œì„ ë¶„ë¥˜í•œë‹¤.
 int Application::VerifyLogIn() {
     /*UserType temp;
     UserType dummy;
-    cout << "\n\t**** ·Î±×ÀÎ ****\n";
+    cout << "\n\t**** ë¡œê·¸ì¸ ****\n";
     temp.SetIdFromKB();
     temp.SetPwFromKB();
     m_AllUserList.ResetList();
@@ -169,28 +169,28 @@ int Application::VerifyLogIn() {
             if (dummy.GetPassword().compare(temp.GetPassword()) == 0) {
                 m_curUser = m_AllUserList.GetCurPtr();
                 if (m_curUser->GetStatus() == USER) {
-                    cout << "\n\t**** À¯Àú ·Î±×ÀÎ ¼º°ø****\n";
+                    cout << "\n\t**** ìœ ì € ë¡œê·¸ì¸ ì„±ê³µ****\n";
                     return USER;
                 }
                 else {
-                    cout << "\n\t**** °ü¸®ÀÚ ·Î±×ÀÎ ¼º°ø****\n";
+                    cout << "\n\t**** ê´€ë¦¬ì ë¡œê·¸ì¸ ì„±ê³µ****\n";
                     return ADMIN;
                 }
             }
             else {
-                cout << "\n\t**** ºñ¹Ğ¹øÈ£ Á¤º¸°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù ****\n";
+                cout << "\n\t**** ë¹„ë°€ë²ˆí˜¸ ì •ë³´ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤ ****\n";
                 return 0;
             }
         }
     }
-    cout << "\n\t**** id Á¤º¸°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù ****\n";
+    cout << "\n\t**** id ì •ë³´ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤ ****\n";
     return 0;*/
 
     UserType temp;
     UserType dummy;
     SimpleUserType2 temp2;
     SimpleUserType2 dummy2;
-    cout << "\n\t**** ·Î±×ÀÎ ****\n";
+    cout << "\n\t**** ë¡œê·¸ì¸ ****\n";
     temp.SetIdFromKB();
     temp.SetPwFromKB();
     temp2.SetPtr(&temp);
@@ -219,38 +219,38 @@ int Application::VerifyLogIn() {
     return 0;
 }
 
-//À¯Àú°¡ ¿µ¾î´Ü¾î ÇĞ½À ÇÁ·Î±×·¥¿¡¼­ ³ª°£´Ù.
+//ìœ ì €ê°€ ì˜ì–´ë‹¨ì–´ í•™ìŠµ í”„ë¡œê·¸ë¨ì—ì„œ ë‚˜ê°„ë‹¤.
 void Application::LogOut() {
     m_curUser = nullptr;
 }
 
-//À¯Àú¸¦ Ãß°¡ÇÑ´Ù.
+//ìœ ì €ë¥¼ ì¶”ê°€í•œë‹¤.
 void Application::CreateUser() {
     /*UserType tempUser;
-    cout << "\n\t**** È¸¿ø°¡ÀÔ ****\n";
+    cout << "\n\t**** íšŒì›ê°€ì… ****\n";
     tempUser.SetIdFromKB();
     while (m_AllUserList.Get(tempUser)) {
-        cout << "\n\tÀÌ¹Ì Á¸ÀçÇÏ´Â idÀÔ´Ï´Ù.\n";
+        cout << "\n\tì´ë¯¸ ì¡´ì¬í•˜ëŠ” idì…ë‹ˆë‹¤.\n";
         tempUser.SetIdFromKB();
     }
     tempUser.SetNameFromKB();
     tempUser.SetPwFromKB();
     tempUser.SetStatus(USER);
     if (m_AllUserList.Insert(tempUser)) {
-        cout << "\n\t°èÁ¤ÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.\n";
+        cout << "\n\tê³„ì •ì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.\n";
     }
     else {
-        cout << "\n\t°èÁ¤»ı¼º¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n";
+        cout << "\n\tê³„ì •ìƒì„±ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n";
     }
     return;
     */
     UserType tempUser;
     SimpleUserType2 tempSimpleUser;
-    cout << "\n\t**** È¸¿ø°¡ÀÔ ****\n";
+    cout << "\n\t**** íšŒì›ê°€ì… ****\n";
     tempUser.SetIdFromKB();
     tempSimpleUser.SetPtr(&tempUser);
     if (m_AllSimpleUList.Get(tempSimpleUser)) {
-        cout << "\n\tÀÌ¹Ì Á¸ÀçÇÏ´Â idÀÔ´Ï´Ù.\n";
+        cout << "\n\tì´ë¯¸ ì¡´ì¬í•˜ëŠ” idì…ë‹ˆë‹¤.\n";
         return;
     }
     else {
@@ -263,17 +263,17 @@ void Application::CreateUser() {
                 m_AllSimpleUList.ExpandSize();
                 m_AllSimpleUList.Insert(tempSimpleUser);
             }
-            cout << "\n\t°èÁ¤ÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.\n";
+            cout << "\n\tê³„ì •ì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.\n";
 
         }
         else {
-            cout << "\n\t°èÁ¤»ı¼º¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n";
+            cout << "\n\tê³„ì •ìƒì„±ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n";
         }
         return;
     }
 }
 
-//À¯Àú¸¦ »èÁ¦ÇÑ´Ù.
+//ìœ ì €ë¥¼ ì‚­ì œí•œë‹¤.
 void Application::DeleteUser() {
 
     UserType tempUser;
@@ -303,7 +303,7 @@ void Application::DeleteUser() {
     }
 }
 
-//¸ğµç À¯ÀúÁ¤º¸¸¦ È­¸é¿¡ Ãâ·ÂÇÑ´Ù.
+//ëª¨ë“  ìœ ì €ì •ë³´ë¥¼ í™”ë©´ì— ì¶œë ¥í•œë‹¤.
 void Application::CheckAllUser() {
     cout << "\n\t**** All User Info ****\n";
     SimpleUserType2 tempSimpleUser;
@@ -316,20 +316,20 @@ void Application::CheckAllUser() {
     }
 }
 
-//À¯Àú Á¤º¸¸¦ ¼öÁ¤ÇÑ´Ù.
+//ìœ ì € ì •ë³´ë¥¼ ìˆ˜ì •í•œë‹¤.
 void Application::EditUser() {
     UserType tempUser;
     SimpleUserType2 tempSimpleUser;
-    cout << "\n\t**** ¼öÁ¤ÇÒ À¯Àúid ÀÔ·Â ****\n";
+    cout << "\n\t**** ìˆ˜ì •í•  ìœ ì €id ì…ë ¥ ****\n";
     tempUser.SetIdFromKB();
     tempSimpleUser.SetPtr(&tempUser);
     if (!m_AllSimpleUList.Get(tempSimpleUser)) {
-        cout << "\n\tÇØ´ç id°¡ ¾ø½À´Ï´Ù.\n";
+        cout << "\n\tí•´ë‹¹ idê°€ ì—†ìŠµë‹ˆë‹¤.\n";
         return;
     }
     else {
         if (tempSimpleUser.GetPtr()->GetStatus() == ADMIN) {
-            cout << "\n\t°ü¸®ÀÚ °èÁ¤Àº °»½ÅÇÒ ¼ö ¾ø½À´Ï´Ù.\n";
+            cout << "\n\tê´€ë¦¬ì ê³„ì •ì€ ê°±ì‹ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n";
             return;
         }
         else {
@@ -342,7 +342,7 @@ void Application::EditUser() {
     }
 }
 
-//·©Ä¿ÀÇ Á¤º¸¸¦ È­¸é¿¡ Ãâ·ÂÇÑ´Ù.
+//ë­ì»¤ì˜ ì •ë³´ë¥¼ í™”ë©´ì— ì¶œë ¥í•œë‹¤.
 void Application::ShowRanker() {
     MaxHeap<SimpleUserType> RankingList;
     int Rank = 1;
@@ -362,38 +362,38 @@ void Application::ShowRanker() {
             break;
         SimpleUserType simple;
         simple = RankingList.Pop();
-        cout << "\n\t" << Rank << " (ID): " << simple.GetPtr()->GetId() << ", Á¡¼ö: " << simple.GetPtr()->GetTestScore() << "Á¡" << endl;
+        cout << "\n\t" << Rank << " (ID): " << simple.GetPtr()->GetId() << ", ì ìˆ˜: " << simple.GetPtr()->GetTestScore() << "ì " << endl;
 
         Rank++;
     }
 
 }
 
-//º»ÀÎ °èÁ¤ÀÇ Á¤º¸¸¦ È­¸é¿¡ Ãâ·ÂÇÑ´Ù.
+//ë³¸ì¸ ê³„ì •ì˜ ì •ë³´ë¥¼ í™”ë©´ì— ì¶œë ¥í•œë‹¤.
 void Application::CheckMyInfo() {
     cout << "\n\t**** My Info ****\n";
     m_curUser->DisplayAll();
 }
 
-//º»ÀÎ °èÁ¤ÀÇ Á¤º¸¸¦ ¼öÁ¤ÇÑ´Ù.
+//ë³¸ì¸ ê³„ì •ì˜ ì •ë³´ë¥¼ ìˆ˜ì •í•œë‹¤.
 void Application::EditMyInfo() {
     cout << "\n\t**** Modify Info ****\n";
     m_curUser->SetPwFromKB();
     m_curUser->SetNameFromKB();
 }
 
-//¿µ¾î´Ü¾î¸¦ °Ë»öÇÑ´Ù.
+//ì˜ì–´ë‹¨ì–´ë¥¼ ê²€ìƒ‰í•œë‹¤.
 void Application::SearchVoca() {
     VocaType Item;
     SimpleVocaType simpleItem;
     Item.SetEnglishFromKB();
     m_AllVocaList.ResetList();
 
-    //¿µ¾î ´Ü¾î ÇÁ·Î±×·¥¿¡ Ã£´Â ¿µ¾î´Ü¾î°¡ Á¸ÀçÇÏÁö¾ÊÀ» °æ¿ì
+    //ì˜ì–´ ë‹¨ì–´ í”„ë¡œê·¸ë¨ì— ì°¾ëŠ” ì˜ì–´ë‹¨ì–´ê°€ ì¡´ì¬í•˜ì§€ì•Šì„ ê²½ìš°
     if (!m_AllVocaList.Get(Item)) {
         cout << "\n\Searched word does not exist." << endl;
     }
-    //¿µ¾î ´Ü¾î ÇÁ·Î±×·¥¿¡ Ã£´Â ¿µ¾î´Ü¾î°¡ Á¸ÀçÇÒ °æ¿ì
+    //ì˜ì–´ ë‹¨ì–´ í”„ë¡œê·¸ë¨ì— ì°¾ëŠ” ì˜ì–´ë‹¨ì–´ê°€ ì¡´ì¬í•  ê²½ìš°
     else {
         Item.DisplayKorean();
         simpleItem.SetPtr(&Item);
@@ -402,16 +402,16 @@ void Application::SearchVoca() {
     }
 }
 
-//¿µ¾î´Ü¾î ½ÃÇèÀ» º»´Ù.
+//ì˜ì–´ë‹¨ì–´ ì‹œí—˜ì„ ë³¸ë‹¤.
 void Application::TestVoca() {
-    //  ÇÁ·Î±×·¥ÀÌ ´Ü¾î¸¦ ÀÓÀÇ·Î ¼±Á¤ÇÏ¿© »ç¿ë ÀÚÀÇ ´Ü¾î¾Ï±â ¼öÁØÀ» Å×½ºÆ®ÇÏ´Â ÇÔ¼ö
+    //  í”„ë¡œê·¸ë¨ì´ ë‹¨ì–´ë¥¼ ì„ì˜ë¡œ ì„ ì •í•˜ì—¬ ì‚¬ìš© ìì˜ ë‹¨ì–´ì•”ê¸° ìˆ˜ì¤€ì„ í…ŒìŠ¤íŠ¸í•˜ëŠ” í•¨ìˆ˜
     SimpleVocaType simpleTempVoca;
     m_AllSimpleList.ResetList();
     srand(time(NULL));
     int randArr[50];
-    for (int i = 0; i < 50; i++) {                                    //0~999ÀÇ ¹üÀ§¿¡¼­ 50°³¸¦ ·£´ıÀ¸·Î Â÷ÃâÇØ¼­
-                                                                    //¹è¿­ randArr[]¿¡ ³Ö´Â´Ù.
-        randArr[i] = rand() % 1000; //0~999ÀÇ ¹üÀ§
+    for (int i = 0; i < 50; i++) {                                    //0~999ì˜ ë²”ìœ„ì—ì„œ 50ê°œë¥¼ ëœë¤ìœ¼ë¡œ ì°¨ì¶œí•´ì„œ
+                                                                    //ë°°ì—´ randArr[]ì— ë„£ëŠ”ë‹¤.
+        randArr[i] = rand() % 1000; //0~999ì˜ ë²”ìœ„
         for (int j = 0; j < i; j++) {
             if (randArr[j] == randArr[i]) {
                 i--;
@@ -419,8 +419,8 @@ void Application::TestVoca() {
             }
         }
     }
-    //¹è¿­ randArr[]¿¡ ¼ÓÇÑ ¼ıÀÚµé¿¡ ´ëÀÀÇÏ´Â ¹è¿­ÀÇ µ¥ÀÌÅÍµéÀ»
-    //´Ü¾î Å×½ºÆ®¿ë ½ºÅÃ¿¡ ³Ö´Â´Ù.
+    //ë°°ì—´ randArr[]ì— ì†í•œ ìˆ«ìë“¤ì— ëŒ€ì‘í•˜ëŠ” ë°°ì—´ì˜ ë°ì´í„°ë“¤ì„
+    //ë‹¨ì–´ í…ŒìŠ¤íŠ¸ìš© ìŠ¤íƒì— ë„£ëŠ”ë‹¤.
     for (int i = 0; i < 50; i++) {
         simpleTempVoca = m_AllSimpleList.GetIndexOfData(randArr[i]);
         m_TestVocaList.push(simpleTempVoca);
@@ -431,7 +431,7 @@ void Application::TestVoca() {
     if (m_TestVocaList.isEmpty())
         Run();
     else {
-        cout.precision(3); //¼ıÀÚ ÀÚ¸´¼ö°¡ 3°³±îÁö¸¸ Ãâ·ÂµÇ°Ô ¼³Á¤
+        cout.precision(3); //ìˆ«ì ìë¦¿ìˆ˜ê°€ 3ê°œê¹Œì§€ë§Œ ì¶œë ¥ë˜ê²Œ ì„¤ì •
         while (1) {
             if (m_TestVocaList.getLength() == 0)
                 break;
@@ -477,7 +477,7 @@ void Application::TestVoca() {
                 }
             }
         }
-        ios_base::fmtflags f(cout.flags()); //precision Ãâ·Â¼³Á¤ ÃÊ±âÈ­
+        ios_base::fmtflags f(cout.flags()); //precision ì¶œë ¥ì„¤ì • ì´ˆê¸°í™”
         cout << endl << "\t<<Result>> Correct : " << correct << " Incorrect : " << incorrect << " Score : " << correct * 2 << "Point " << endl;
         m_TestVocaList.MakeEmpty();
         if ((correct * 2) > m_curUser->GetTestScore()) {
@@ -486,7 +486,7 @@ void Application::TestVoca() {
     }
 }
 
-//¿µ¾î´Ü¾î ÇĞ½À±â´É driver
+//ì˜ì–´ë‹¨ì–´ í•™ìŠµê¸°ëŠ¥ driver
 void Application::LearnVoca() {
     while (1)
     {
@@ -503,7 +503,7 @@ void Application::LearnVoca() {
     }
 }
 
-//ÇĞ½À·¹º§ ¼±ÅÃ¿¡¼­ »ç¿ëÀÚÀÇ ¸í·ÉÀ» ÀÔ·Â¹Ş´Â´Ù.
+//í•™ìŠµë ˆë²¨ ì„ íƒì—ì„œ ì‚¬ìš©ìì˜ ëª…ë ¹ì„ ì…ë ¥ë°›ëŠ”ë‹¤.
 int Application::GetCommandLearnLevel() {
     int command;
     cout << endl << endl;
@@ -522,11 +522,11 @@ int Application::GetCommandLearnLevel() {
     return command;
 }
 
-//¿µ¾îÇĞ½À ´Ü¾î¸®½ºÆ®°¡ ÀÔ·ÂµÈ ·¹º§¿¡ ¸Â°Ô Ã¤¿öÁø´Ù.
+//ì˜ì–´í•™ìŠµ ë‹¨ì–´ë¦¬ìŠ¤íŠ¸ê°€ ì…ë ¥ëœ ë ˆë²¨ì— ë§ê²Œ ì±„ì›Œì§„ë‹¤.
 void Application::SetLearnList(int l) {
     int LearnLevel = m_curUser->GetLearnLevel();
     if (LearnLevel < l - 1) {
-        cout << "\n\tLevel" << LearnLevel + 1 << "ºÎÅÍ ÇĞ½ÀÇØÁÖ¼¼¿ä.\n";
+        cout << "\n\tLevel" << LearnLevel + 1 << "ë¶€í„° í•™ìŠµí•´ì£¼ì„¸ìš”.\n";
         return;
     }
     SimpleVocaType simpleTempVoca;
@@ -535,67 +535,67 @@ void Application::SetLearnList(int l) {
     srand(time(NULL));
     int randArr[200];
     for (int i = 0; i < 200; i++) {
-        randArr[i] = rand() % 200 + (((l - 1) * 200));    //c´Â ¼±ÅÃµÈ ·¹º§ÀÌ´Ù. c°¡ 1ÀÌ¸é 0~199 index¿¡ À§Ä¡ÇÑ µ¥ÀÌÅÍ
-        for (int j = 0; j < i; j++) {                    //                       c°¡ 2¸é 200~399 index¿¡ À§Ä¡ÇÑ µ¥ÀÌÅÍ
+        randArr[i] = rand() % 200 + (((l - 1) * 200));    //cëŠ” ì„ íƒëœ ë ˆë²¨ì´ë‹¤. cê°€ 1ì´ë©´ 0~199 indexì— ìœ„ì¹˜í•œ ë°ì´í„°
+        for (int j = 0; j < i; j++) {                    //                       cê°€ 2ë©´ 200~399 indexì— ìœ„ì¹˜í•œ ë°ì´í„°
             if (randArr[j] == randArr[i]) {
                 i--;
                 break;
             }
         }
     }
-    // m_LearnVocaList¿¡ m_id 1~200¿¡ ÇØ´çÇÏ´Â VocaTypeÀ» enQueueÇÑ´Ù.
+    // m_LearnVocaListì— m_id 1~200ì— í•´ë‹¹í•˜ëŠ” VocaTypeì„ enQueueí•œë‹¤.
     for (int i = 0; i < 200; i++) {
-        simpleTempVoca = m_AllSimpleList.GetIndexOfData(randArr[i]);    //0~199ÀÇ ÀÎµ¦½º¿¡ À§Ä¡ÇÑ µ¥ÀÌÅÍ°¡ ¹«ÀÛÀ§·Î
-        m_LearnVocaList.enQueue(simpleTempVoca);                        //ÇĞ½À¿ë Å¥¿¡ Ã¤¿öÁø´Ù.
+        simpleTempVoca = m_AllSimpleList.GetIndexOfData(randArr[i]);    //0~199ì˜ ì¸ë±ìŠ¤ì— ìœ„ì¹˜í•œ ë°ì´í„°ê°€ ë¬´ì‘ìœ„ë¡œ
+        m_LearnVocaList.enQueue(simpleTempVoca);                        //í•™ìŠµìš© íì— ì±„ì›Œì§„ë‹¤.
     }
 
-    //À§¿¡¼­ Á¤ÇØÁø ¿µ¾î´Ü¾î 200°³¿¡ ´ëÇÑ ÇĞ½ÀÀ» ¹İº¹ÇÑ´Ù.
-    ExecuteLearn();                                                        //À§¿¡¼­ Ã¤¿öÁø ÇĞ½À¿ë Å¥¿¡ ´ëÇÑ ¹İº¹ÇĞ½ÀÀÌ ½ÃÀÛµÈ´Ù.
+    //ìœ„ì—ì„œ ì •í•´ì§„ ì˜ì–´ë‹¨ì–´ 200ê°œì— ëŒ€í•œ í•™ìŠµì„ ë°˜ë³µí•œë‹¤.
+    ExecuteLearn();                                                        //ìœ„ì—ì„œ ì±„ì›Œì§„ í•™ìŠµìš© íì— ëŒ€í•œ ë°˜ë³µí•™ìŠµì´ ì‹œì‘ëœë‹¤.
 }
 
 
-//¿µ¾î´Ü¾î 200°³¿¡ ´ëÇÑ ÇĞ½ÀÀ» ¹İº¹ÇÑ´Ù.
+//ì˜ì–´ë‹¨ì–´ 200ê°œì— ëŒ€í•œ í•™ìŠµì„ ë°˜ë³µí•œë‹¤.
 int Application::ExecuteLearn() {
     int LearnLevel = m_curUser->GetLearnLevel();
     string tempString;
     SimpleVocaType simpleTempVoca;
 
-    // m_LearnVocaList¿¡ VocaTypeÀÌ ÀüºÎ ¾ø¾îÁö±â Àü±îÁö ¹İº¹ÇĞ½À ½ÃÀÛ
+    // m_LearnVocaListì— VocaTypeì´ ì „ë¶€ ì—†ì–´ì§€ê¸° ì „ê¹Œì§€ ë°˜ë³µí•™ìŠµ ì‹œì‘
     while (m_LearnVocaList.GetLength() != 0)
     {
         m_LearnVocaList.deQueue(simpleTempVoca);
         simpleTempVoca.GetPtr()->DisplayKorean();
-        cout << "\tÇØ´çÇÏ´Â ´Ü¾îÀÔ·Â(Áß°£ÅğÀå: Y): ";
+        cout << "\tí•´ë‹¹í•˜ëŠ” ë‹¨ì–´ì…ë ¥(ì¤‘ê°„í‡´ì¥: Y): ";
         cin >> tempString;
-        if (simpleTempVoca.GetPtr()->GetEnglish().compare(tempString) != 0)    //¿À´äÀÏ °æ¿ì
+        if (simpleTempVoca.GetPtr()->GetEnglish().compare(tempString) != 0)    //ì˜¤ë‹µì¼ ê²½ìš°
         {
-            if (tempString == "Y")    //³ª°¡°í ½ÍÀ» °æ¿ì
+            if (tempString == "Y")    //ë‚˜ê°€ê³  ì‹¶ì„ ê²½ìš°
             {
-                cout << "\n\tLevel" << LearnLevel + 1 << "À» Æ÷±âÇÕ´Ï´Ù.\n";
+                cout << "\n\tLevel" << LearnLevel + 1 << "ì„ í¬ê¸°í•©ë‹ˆë‹¤.\n";
                 m_LearnVocaList.MakeEmpty();
                 return 0;
             }
             m_LearnVocaList.enQueue(simpleTempVoca);
             tempString = simpleTempVoca.GetPtr()->GetEnglish();
-            cout << "\twrong(" << tempString << "), ³²Àº ÇĞ½À´Ü¾î: " << m_LearnVocaList.GetLength() << "°³" << endl;
+            cout << "\twrong(" << tempString << "), ë‚¨ì€ í•™ìŠµë‹¨ì–´: " << m_LearnVocaList.GetLength() << "ê°œ" << endl;
             if (!(m_curUser->GetList()->Get(simpleTempVoca))) {
-                cout << "\n\t\tÇØ´ç ´Ü¾î¸¦ ³» ´Ü¾îÀå¿¡ Ãß°¡ÇÏ½Ã°Ú½À´Ï±î?\n\t\t(Y/N):"; cin >> tempString;
+                cout << "\n\t\tí•´ë‹¹ ë‹¨ì–´ë¥¼ ë‚´ ë‹¨ì–´ì¥ì— ì¶”ê°€í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\t\t(Y/N):"; cin >> tempString;
                 if (tempString.compare("Y") == 0) {
                     if (m_curUser->AddVoca(simpleTempVoca)) {
-                        cout << "\t\t³» ´Ü¾îÀå¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù!!\n";
+                        cout << "\t\të‚´ ë‹¨ì–´ì¥ì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤!!\n";
                     }
                     else {
-                        cout << "\t\t³» ´Ü¾îÀå Ãß°¡¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù..\n";
+                        cout << "\t\të‚´ ë‹¨ì–´ì¥ ì¶”ê°€ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤..\n";
                     }
                 }
             }
         }
         else
-        {                                                    //Á¤´äÀÏ °æ¿ì
-            cout << "\tright!, ³²Àº ÇĞ½À´Ü¾î: " << m_LearnVocaList.GetLength() << "°³" << endl;
+        {                                                    //ì •ë‹µì¼ ê²½ìš°
+            cout << "\tright!, ë‚¨ì€ í•™ìŠµë‹¨ì–´: " << m_LearnVocaList.GetLength() << "ê°œ" << endl;
         }
     }
-    cout << "\n\tLevel" << LearnLevel + 1 << "´Ü°è¸¦ ÇĞ½À ¿Ï·áÇß½À´Ï´Ù.\n";
+    cout << "\n\tLevel" << LearnLevel + 1 << "ë‹¨ê³„ë¥¼ í•™ìŠµ ì™„ë£Œí–ˆìŠµë‹ˆë‹¤.\n";
     if (LearnLevel < 4) {
         LearnLevel++;
         m_curUser->SetLearnLevel(LearnLevel);
@@ -603,7 +603,7 @@ int Application::ExecuteLearn() {
     return 1;
 }
 
-//³» ´Ü¾îÀå °ü¸® driver
+//ë‚´ ë‹¨ì–´ì¥ ê´€ë¦¬ driver
 void Application::ManageMyVocaList() {
     while (1)
     {
@@ -611,19 +611,19 @@ void Application::ManageMyVocaList() {
 
         switch (m_command)
         {
-        case 1:        // ³» ´Ü¾îÀå ¸®½ºÆ®¿¡ ¿µ¾î´Ü¾î¸¦ Ãß°¡ÇÑ´Ù.
+        case 1:        // ë‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ì— ì˜ì–´ë‹¨ì–´ë¥¼ ì¶”ê°€í•œë‹¤.
             AddMyVoca();
             break;
-        case 2:        // ³» ´Ü¾îÀå ¸®½ºÆ®¿¡¼­ Æ¯Á¤ ¿µ¾î´Ü¾î¸¦ »èÁ¦ÇÑ´Ù.
+        case 2:        // ë‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ì—ì„œ íŠ¹ì • ì˜ì–´ë‹¨ì–´ë¥¼ ì‚­ì œí•œë‹¤.
             DeleteMyVoca();
             break;
-        case 3:        // ³» ´Ü¾îÀåÀÇ ¸ğµç ¿µ¾î´Ü¾î¸¦ È­¸é¿¡ Ãâ·ÂÇÑ´Ù.
+        case 3:        // ë‚´ ë‹¨ì–´ì¥ì˜ ëª¨ë“  ì˜ì–´ë‹¨ì–´ë¥¼ í™”ë©´ì— ì¶œë ¥í•œë‹¤.
             m_curUser->DisplayVoca();
             break;
-        case 4:        // ³» ´Ü¾îÀåÀÇ ¸ğµç ¿µ¾î´Ü¾î¸¦ ¿ª¼øÀ¸·Î È­¸é¿¡ Ãâ·ÂÇÑ´Ù.
+        case 4:        // ë‚´ ë‹¨ì–´ì¥ì˜ ëª¨ë“  ì˜ì–´ë‹¨ì–´ë¥¼ ì—­ìˆœìœ¼ë¡œ í™”ë©´ì— ì¶œë ¥í•œë‹¤.
             m_curUser->DisplayVocaReverse();
             break;
-        case 5:        // ³» ´Ü¾îÀå¿¡ ÀÖ´Â ¸ğµç ¿µ¾î´Ü¾î¸¦ ³» ´Ü¾îÀå ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
+        case 5:        // ë‚´ ë‹¨ì–´ì¥ì— ìˆëŠ” ëª¨ë“  ì˜ì–´ë‹¨ì–´ë¥¼ ë‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•œë‹¤.
             m_curUser->DeleteAllVoca();
             break;
         case 0:
@@ -635,7 +635,7 @@ void Application::ManageMyVocaList() {
     }
 }
 
-//È­¸é¿¡ ³» ´Ü¾îÀå °ü¸® ¸í·É¾î ¸ñ·ÏÀ» Ãâ·ÂÇÏ°í Å°º¸µå·Î ¼±ÅÃµÈ ¸í·ÉÀ» ÀÔ·Â¹Ş´Â´Ù.
+//í™”ë©´ì— ë‚´ ë‹¨ì–´ì¥ ê´€ë¦¬ ëª…ë ¹ì–´ ëª©ë¡ì„ ì¶œë ¥í•˜ê³  í‚¤ë³´ë“œë¡œ ì„ íƒëœ ëª…ë ¹ì„ ì…ë ¥ë°›ëŠ”ë‹¤.
 int Application::GetCommandMyVocaList() {
     int command;
     cout << endl << endl;
@@ -654,78 +654,78 @@ int Application::GetCommandMyVocaList() {
     return command;
 }
 
-//³» ´Ü¾îÀå ¸®½ºÆ®¿¡ ¿µ¾î´Ü¾î¸¦ Ãß°¡ÇÑ´Ù.
+//ë‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ì— ì˜ì–´ë‹¨ì–´ë¥¼ ì¶”ê°€í•œë‹¤.
 void Application::AddMyVoca() {
     VocaType tempVoca;
     SimpleVocaType simpleTempVoca;
 
     if (m_curUser->GetQueue()->GetLength() != 0) {
         int cnt = 0;
-        cout << "\n\tRecent Searchec Words(5°³): \n";
+        cout << "\n\tRecent Searchec Words(5ê°œ): \n";
         while (m_curUser->GetQueue()->deQueue(simpleTempVoca)) {
             cout << "\t" << cnt++ + 1 << ". English: " << simpleTempVoca.GetPtr()->GetEnglish() << ", Korean: " << simpleTempVoca.GetPtr()->GetKorean() << endl;
         }
     }
 
-    cout << "\n\t³» ´Ü¾îÀå ¸®½ºÆ®¿¡ Ãß°¡ÇÏ·Á´Â ¿µ¾î´Ü¾î °Ë»ö: ";
+    cout << "\n\të‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•˜ë ¤ëŠ” ì˜ì–´ë‹¨ì–´ ê²€ìƒ‰: ";
     tempVoca.SetEnglishFromKB();
-    if (m_AllVocaList.Get(tempVoca)) {        //¿µ¾î´Ü¾î ÇÁ·Î±×·¥¿¡ °Ë»öÇÑ ¿µ¾î´Ü¾î°¡ Á¸ÀçÇÏ´ÂÁö °Ë»ç
+    if (m_AllVocaList.Get(tempVoca)) {        //ì˜ì–´ë‹¨ì–´ í”„ë¡œê·¸ë¨ì— ê²€ìƒ‰í•œ ì˜ì–´ë‹¨ì–´ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ê²€ì‚¬
         simpleTempVoca = m_AllSimpleList.GetIndexOfData(tempVoca.GetId() - 1);
         if (m_curUser->AddVoca(simpleTempVoca)) {
-            cout << "\n\t³» ´Ü¾îÀå ¸®½ºÆ® ¾÷µ¥ÀÌÆ® ¿Ï·á\n";
+            cout << "\n\të‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸ ì™„ë£Œ\n";
         }
         else {
-            cout << "\n\t³» ´Ü¾îÀå ¸®½ºÆ® ¾÷µ¥ÀÌÆ® ½ÇÆĞ\n";
+            cout << "\n\të‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸ ì‹¤íŒ¨\n";
         }
     }
-    else {                                    //¿µ¾î´Ü¾î ÇÁ·Î±×·¥¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ¿µ¾î´Ü¾îÀÏ °æ¿ì
-        cout << "\n\tÇØ´ç ´Ü¾î´Â ¿µ¾î´Ü¾î ÇÁ·Î±×·¥¿¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n";
+    else {                                    //ì˜ì–´ë‹¨ì–´ í”„ë¡œê·¸ë¨ì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì˜ì–´ë‹¨ì–´ì¼ ê²½ìš°
+        cout << "\n\tí•´ë‹¹ ë‹¨ì–´ëŠ” ì˜ì–´ë‹¨ì–´ í”„ë¡œê·¸ë¨ì— ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n";
     }
 }
 
-//³» ´Ü¾îÀå ¸®½ºÆ®¿¡¼­ Æ¯Á¤ ¿µ¾î´Ü¾î¸¦ »èÁ¦ÇÑ´Ù.
+//ë‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ì—ì„œ íŠ¹ì • ì˜ì–´ë‹¨ì–´ë¥¼ ì‚­ì œí•œë‹¤.
 void Application::DeleteMyVoca() {
     VocaType tempVoca;
     SimpleVocaType simpleTempVoca;
 
-    cout << "\n\t³» ´Ü¾îÀå ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÏ·Á´Â ¿µ¾î´Ü¾î ÀÔ·Â: ";
+    cout << "\n\të‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•˜ë ¤ëŠ” ì˜ì–´ë‹¨ì–´ ì…ë ¥: ";
     tempVoca.SetEnglishFromKB();
-    if (m_AllVocaList.Get(tempVoca)) {                //ÇÁ·Î±×·¥¿¡ »èÁ¦ÇÏ·Á´Â ¿µ¾î´Ü¾î°¡ Á¸ÀçÇÏ´ÂÁö °Ë»ç
+    if (m_AllVocaList.Get(tempVoca)) {                //í”„ë¡œê·¸ë¨ì— ì‚­ì œí•˜ë ¤ëŠ” ì˜ì–´ë‹¨ì–´ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ê²€ì‚¬
         simpleTempVoca = m_AllSimpleList.GetIndexOfData(tempVoca.GetId() - 1);
         if (m_curUser->DeleteVoca(simpleTempVoca)) {
-            cout << "\n\t³» ´Ü¾îÀå ¸®½ºÆ® ¾÷µ¥ÀÌÆ® ¿Ï·á\n";
+            cout << "\n\të‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸ ì™„ë£Œ\n";
         }
         else {
-            cout << "\n\t³» ´Ü¾îÀå ¸®½ºÆ® ¾÷µ¥ÀÌÆ® ½ÇÆĞ\n";
+            cout << "\n\të‚´ ë‹¨ì–´ì¥ ë¦¬ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸ ì‹¤íŒ¨\n";
         }
     }
-    else {                                            //ÇÁ·Î±×·¥¿¡ »èÁ¦ÇÏ·Á´Â ¿µ¾î´Ü¾î°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
+    else {                                            //í”„ë¡œê·¸ë¨ì— ì‚­ì œí•˜ë ¤ëŠ” ì˜ì–´ë‹¨ì–´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°
         cout << "\n\tWord doesn't exist\n";
     }
 }
 
-//ÇÁ·Î±×·¥ ¿µ¾î´Ü¾î¸¦ ÆÄÀÏ·ÎºÎÅÍ ÃÊ±âÈ­ÇÑ´Ù.
+//í”„ë¡œê·¸ë¨ ì˜ì–´ë‹¨ì–´ë¥¼ íŒŒì¼ë¡œë¶€í„° ì´ˆê¸°í™”í•œë‹¤.
 void Application::InitWordBook() {
     m_InFile.open("WordFile.txt");
-    VocaType item;                            //Item »ğÀÔÇÒ ¿µ´Ü¾î Á¤º¸¸¦ ´ãÀ» VocaType °´Ã¼
-    SimpleVocaType simpleItem;                //ÀĞ¾î¿Â µ¥ÀÌÅÍ°¡ ´ã±ä item °´Ã¼¸¦ SimpleVocaType °´Ã¼ÀÎÀÚ·Î ³Ñ°ÜÁÜ
+    VocaType item;                            //Item ì‚½ì…í•  ì˜ë‹¨ì–´ ì •ë³´ë¥¼ ë‹´ì„ VocaType ê°ì²´
+    SimpleVocaType simpleItem;                //ì½ì–´ì˜¨ ë°ì´í„°ê°€ ë‹´ê¸´ item ê°ì²´ë¥¼ SimpleVocaType ê°ì²´ì¸ìë¡œ ë„˜ê²¨ì¤Œ
     m_AllVocaList.ResetList();
 
-    //ÆÄÀÏ·ÎºÎÅÍ vocaÁ¤º¸¸¦ ºÒ·¯¿Í¼­ m_AllVocaList¸¦ ±¸¼ºÇÑ´Ù.
+    //íŒŒì¼ë¡œë¶€í„° vocaì •ë³´ë¥¼ ë¶ˆëŸ¬ì™€ì„œ m_AllVocaListë¥¼ êµ¬ì„±í•œë‹¤.
     while (!m_InFile.eof()) {
         item.ReadDataFromFile(m_InFile);
-        m_AllVocaList.Insert(item);//ÇöÀç Æ÷ÀÎÅÍ À§Ä¡¿¡ ÀĞ¾î¿Â µ¥ÀÌÅÍ°¡ ´ã±ä item °´Ã¼¸¦ ÀÎÀÚ º¸³¿
+        m_AllVocaList.Insert(item);//í˜„ì¬ í¬ì¸í„° ìœ„ì¹˜ì— ì½ì–´ì˜¨ ë°ì´í„°ê°€ ë‹´ê¸´ item ê°ì²´ë¥¼ ì¸ì ë³´ëƒ„
     }
     m_InFile.close();
 
-    //m_AllSimpleList¸¦ 1000°³ÀÇ Voca °´Ã¼ Á¤º¸·Î ±¸¼ºÇÑ´Ù.
+    //m_AllSimpleListë¥¼ 1000ê°œì˜ Voca ê°ì²´ ì •ë³´ë¡œ êµ¬ì„±í•œë‹¤.
     m_AllVocaList.ResetList();
-    while (m_AllVocaList.GetNext(item) != -1) {        //m_AllVocaListÀÇ ¸ğµç ¿ä¼Ò¸¦ m_AllSimpleList¿¡ º¹»çÇÏ´Â °úÁ¤
+    while (m_AllVocaList.GetNext(item) != -1) {        //m_AllVocaListì˜ ëª¨ë“  ìš”ì†Œë¥¼ m_AllSimpleListì— ë³µì‚¬í•˜ëŠ” ê³¼ì •
 
-        simpleItem.SetPtr(m_AllVocaList.GetCurPtr());    //  m_AllVocaList.GetCurPtr()·Î ´Ü¾î¸®½ºÆ® ¼Ó °¢ ¿ä¼ÒÀÇ Æ÷ÀÎÅÍ¸¦ »Ì¾Æ¿Â´Ù.
-                                                        // ( while¹®ÀÇ GetNextVoca()´Â ¸®½ºÆ® ³»ÀÇ ¸ğµç ¿ä¼Ò¿¡ Á¢±ÙÇÏ±â À§ÇÑ ¹İº¹¿ªÇÒ)
+        simpleItem.SetPtr(m_AllVocaList.GetCurPtr());    //  m_AllVocaList.GetCurPtr()ë¡œ ë‹¨ì–´ë¦¬ìŠ¤íŠ¸ ì† ê° ìš”ì†Œì˜ í¬ì¸í„°ë¥¼ ë½‘ì•„ì˜¨ë‹¤.
+                                                        // ( whileë¬¸ì˜ GetNextVoca()ëŠ” ë¦¬ìŠ¤íŠ¸ ë‚´ì˜ ëª¨ë“  ìš”ì†Œì— ì ‘ê·¼í•˜ê¸° ìœ„í•œ ë°˜ë³µì—­í• )
 
-        m_AllSimpleList.Insert(simpleItem);            // m_AllVocaListÀÇ °¢¿ä¼ÒÀÇ Æ÷ÀÎÅÍ¸¦ °®°íÀÖ´Â
-                                                        //simpleItemÀ» m_AllSimpleList¿¡ ³Ö´Â´Ù.
+        m_AllSimpleList.Insert(simpleItem);            // m_AllVocaListì˜ ê°ìš”ì†Œì˜ í¬ì¸í„°ë¥¼ ê°–ê³ ìˆëŠ”
+                                                        //simpleItemì„ m_AllSimpleListì— ë„£ëŠ”ë‹¤.
     }
 }
