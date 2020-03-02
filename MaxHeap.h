@@ -8,55 +8,37 @@ template <class T>
 class MaxHeap {
 public:
 	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
+	*	
 	*/
     MaxHeap();				//Default constructor
 	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
+	*	
 	*/
     MaxHeap(int size);		//Constructor with size parameter for setting 
 	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
+	*	
 	*/
 	~MaxHeap() {			//Default destructor calling MakeEmpty function to deallocate all existing dynamic allocation
         MakeEmpty();
     }
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
     bool IsEmpty();
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
 	bool IsFull();
 
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
     int GetLength() const;
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
 	void MakeEmpty();		//Deallocate all dynamic allocations
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
     int Add(T item);		//Add a parameter item to Heap 
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
 	int Delete(T item);		// Delete an item that matches the parameter item id. If properly deleted return 1, if not return 0 
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
 	T Pop();				// Pop the node root
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
 	void RetrieveItem(T& item, bool& found);// find an item matching with parmater item id. If found found boolean turns true 
-	/**
-	*	@brief	LinkedList에서 반복자를 이동시켜 해당 반복자가 가리키는 Node의 data로 갱신한다. Move the iterator
-	*/
+	
 	void PrintHeap(ostream& os);
 
     void ReheapDown(int iparent, int ibottom);			// iparent variable as parent node, ibottom as key node. Heap down process using recursion
