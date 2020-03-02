@@ -36,7 +36,7 @@ public:
 };
 
 
-template <typename T>					//¿µ¾î´Ü¾î ÇĞ½À ÇÁ·Î±×·¥¿¡¼­´Â T¸¦ VocaTypeÀÇ °£´Ü ¹öÀüÀ¸·Î µÑ ¿¹Á¤.
+template <typename T>					
 class Queue {
 public:
 	Queue();							//Constructor
@@ -55,7 +55,7 @@ private:
 	int m_MaxSize;						//Maximum size of the queue
 };
 
-//»ı¼ºÀÚ
+//ìƒì„±ì
 template <typename T>
 Queue<T>::Queue() {
 	m_LearnVocaList = new T[maxQueue + 1];
@@ -65,19 +65,19 @@ Queue<T>::Queue() {
 	m_length = 0;
 }
 
-//ÇĞ½À´Ü¾î ¸ñ·ÏÀÌ ²Ë Ã¡´ÂÁö °Ë»çÇÑ´Ù.
+//í•™ìŠµë‹¨ì–´ ëª©ë¡ì´ ê½‰ ì°¼ëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 template <typename T>
 bool Queue<T>::isFull() {
 	return(m_iFront == ((m_iRear + 1) % m_MaxSize));
 }
 
-//ÇĞ½À´Ü¾î ¸ñ·ÏÀÌ ºñ¾ú´ÂÁö °Ë»çÇÑ´Ù.
+//í•™ìŠµë‹¨ì–´ ëª©ë¡ì´ ë¹„ì—ˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 template <typename T>
 bool Queue<T>::isEmpty() {
 	return(m_iFront == m_iRear);
 }
 
-//ÇĞ½À´Ü¾î ¸ñ·ÏÀ» ºñ¿î´Ù.
+//í•™ìŠµë‹¨ì–´ ëª©ë¡ì„ ë¹„ìš´ë‹¤.
 template <typename T>
 void Queue<T>::MakeEmpty() {
 	m_iFront = maxQueue;
@@ -86,7 +86,7 @@ void Queue<T>::MakeEmpty() {
 	return;
 }
 
-//ÇĞ½À´Ü¾î ¸ñ·Ï¿¡ ´Ü¾î¸¦ Ãß°¡ÇÑ´Ù.
+//í•™ìŠµë‹¨ì–´ ëª©ë¡ì— ë‹¨ì–´ë¥¼ ì¶”ê°€í•œë‹¤.
 template <typename T>
 void Queue<T>::enQueue(T& item) {
 	if (isFull()) {
@@ -98,13 +98,13 @@ void Queue<T>::enQueue(T& item) {
 	else {
 		m_iRear = (m_iRear + 1) % m_MaxSize;
 		m_LearnVocaList[m_iRear] = item;
-		//cout << "\t\nenQueue ¼º°ø\n";
+		//cout << "\t\nenQueue ì„±ê³µ\n";
 		m_length++;
 	}
 	return;
 }
 
-//ÇĞ½À´Ü¾î ¸ñ·Ï¿¡¼­ ´Ü¾î¸¦ ÃßÃâÇÑ´Ù.
+//í•™ìŠµë‹¨ì–´ ëª©ë¡ì—ì„œ ë‹¨ì–´ë¥¼ ì¶”ì¶œí•œë‹¤.
 template <typename T>
 int Queue<T>::deQueue(T& item) {
 	if (isEmpty()) {
@@ -119,7 +119,7 @@ int Queue<T>::deQueue(T& item) {
 	}
 }
 
-//ÇĞ½À´Ü¾î ¸ñ·Ï¿¡¼­ ³²¾ÆÀÖ´Â ´Ü¾î °¹¼ö¸¦ ¹İÈ¯
+//í•™ìŠµë‹¨ì–´ ëª©ë¡ì—ì„œ ë‚¨ì•„ìˆëŠ” ë‹¨ì–´ ê°¯ìˆ˜ë¥¼ ë°˜í™˜
 template <typename T>
 int Queue<T>::GetLength() {
 	return m_length;
