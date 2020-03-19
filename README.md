@@ -12,9 +12,9 @@
   - Self Diagnosis<br>
   - My WordBook<br>
   - User
-  <br>
+  <br><br><br>
   
-  Did not use c++ library(stack, queue...) to build the structure by ourselves
+  *Did not use c++ library(stack, queue...) to build the structure by ourselves
   
   
   
