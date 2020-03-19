@@ -12,6 +12,9 @@
   - Self Diagnosis<br>
   - My WordBook<br>
   - User
+  <br>
+  
+  Did not use c++ library(stack, queue...) to build the structure by ourselves
   
   
   
