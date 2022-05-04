@@ -14,7 +14,7 @@
   - User
   <br><br><br>
   
-  *Did not use c++ library(stack, queue...) to build the structure by ourselves<br><br>
+  *All structures were coded by the team(c++ library was not used such as queue, heap, stack)<br><br>
   
 <b>contributors : Hansol Lee, Wonseok Seo, Yeonjun Kim</b>
   
